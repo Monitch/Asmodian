@@ -13,37 +13,45 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AsmodianController {
 
-    //jdbc:postgresql://localhost:5432/Asmodian db url
     CurrentUser currentUser = new CurrentUser();
+    DataBaseController dataBaseController = new DataBaseController();
 
     @RequestMapping("/")
-    public String index(Model model) {
-        model.addAttribute("text", "Some Text");
-        return "redirect:/test";
+    public String index() {
+        return "redirect:/SignIn";
+    }
+    @GetMapping("/SignIn")
+    public String SignIn(){
+        return "/SignIn";
+    }
+    @GetMapping("/SignUp")
+    public String SignUp(){
+        return "/SignUp";
     }
 
-    @GetMapping("/test")
-    public String test(Model model){
-        //model.addAttribute("name", currentUser.getEmail());
-        DataBaseController dataBaseController = new DataBaseController();
-        model.addAttribute("name", dataBaseController.getEmail());
-        model.addAttribute("email", dataBaseController.getName());
-        return "/test";
-    }
-    @GetMapping("/da")
-    public String da(Model model){
-        DataBaseController dataBaseController = new DataBaseController();
-        dataBaseController.testDB();
-        model.addAttribute("name", dataBaseController.getName());
-        model.addAttribute("email", dataBaseController.getEmail());
-        model.addAttribute("dada", currentUser.getEmail());
-        return "/da";
-    }
-    @PostMapping("/test")
-    public String getValue(@RequestParam("email") String email, Model model) {
+    @PostMapping("/SignUp")
+    public String getSignUp( @RequestParam("email") String email,
+                             @RequestParam("password") String password){
         currentUser.setEmail(email);
-        model.addAttribute("text",currentUser.getEmail());
-        return  "redirect:/da";
+        currentUser.setPassword(password);
+        return  "redirect:/MainPage";
     }
 
+    @PostMapping("/SignIn")
+    public String getSignIn( @RequestParam("email") String email,
+                            @RequestParam("password") String password){
+        currentUser.setEmail(email);
+        currentUser.setPassword(password);
+        return  "redirect:/MainPage";
+    }
+    @GetMapping("/MainPage")
+    public String MainPAge(Model model){
+        dataBaseController.testDB();
+        model.addAttribute("email", currentUser.getEmail());
+        model.addAttribute("password",currentUser.getPassword());
+
+        model.addAttribute("emailDB", dataBaseController.getEmail());
+        model.addAttribute("passwordDB", dataBaseController.getName());
+        return "/MainPage";
+    }
 }
