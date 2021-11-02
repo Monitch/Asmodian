@@ -3,12 +3,10 @@ package com.example.demo.Controller;
 
 import com.example.demo.CurrentUser.CurrentUser;
 import com.example.demo.DBController.DataBaseController;
+import com.example.demo.Model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class AsmodianController {
@@ -25,15 +23,15 @@ public class AsmodianController {
         return "/SignIn";
     }
     @GetMapping("/SignUp")
-    public String SignUp(){
+    public String SignUp(Model model){
+        model.addAttribute("users",new User());
         return "/SignUp";
     }
 
     @PostMapping("/SignUp")
-    public String getSignUp( @RequestParam("email") String email,
-                             @RequestParam("password") String password){
-        currentUser.setEmail(email);
-        currentUser.setPassword(password);
+    public String getSignUp(@ModelAttribute("users") User user) {
+        dataBaseController.registration(user);
+
         return  "redirect:/MainPage";
     }
 

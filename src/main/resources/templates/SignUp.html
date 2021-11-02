@@ -6,16 +6,23 @@
 </head>
 <body>
 <div class="aaa">
-    <form method="Post">
-        <label for="email"> Логін</label>
-        <br>
-        <input type="text" id="email" name="email" placeholder="Введдіть логін">
-        <br>
-        <label for="password"> Пароль</label>
-        <br>
-        <input type="password" id="password" name="password" placeholder="Веддіть пароль">
-        <br>
-        <input type="submit" value="Convert"/>
+    <form th:method="POST" th:action="@{SignUp}" th:object="${users}">
+        <label for="name">Enter name: </label>
+        <input type="text" th:field="*{name}" id="name"/>
+        <br/>
+        <label for="email">Enter email: </label>
+        <input type="text" th:field="*{email}" id="email"/>
+        <br/>
+        <label for="number">Enter number: </label>
+        <input type="text" th:field="*{number}" id="number"/>
+        <br/>
+        <label for="password">Enter password: </label>
+        <input type="text" th:field="*{password}" id="password"/>
+        <br/>
+        <label for="doctor">Enter doctor: </label>
+        <input type="text" th:field="*{doctor}" id="doctor"/>
+        <br/>
+        <input type="submit" value="Create!"/>
     </form>
 </div>
 <a href="/SignIn">Вже маєш акаунт?</a>
