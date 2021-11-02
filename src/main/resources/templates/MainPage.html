@@ -5,10 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<p th:text=${email}></p>
-<p th:text=${password}></p>
-<br/>
-<p th:text=${emailDB}></p>
-<p th:text=${passwordDB}></p>
-</body>
+<div th:each="user : ${users}">
+       <p th:text="${user.getName() + ', ' + user.getEmail()}">Age</p>
+</div>
 </html>

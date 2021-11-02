@@ -46,12 +46,7 @@ public class AsmodianController {
     }
     @GetMapping("/MainPage")
     public String MainPAge(Model model){
-        dataBaseController.testDB();
-        model.addAttribute("email", currentUser.getEmail());
-        model.addAttribute("password",currentUser.getPassword());
-
-        model.addAttribute("emailDB", dataBaseController.getEmail());
-        model.addAttribute("passwordDB", dataBaseController.getName());
+        model.addAttribute("users", dataBaseController.index());
         return "/MainPage";
     }
 }
