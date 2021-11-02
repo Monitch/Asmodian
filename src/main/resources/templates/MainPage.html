@@ -8,4 +8,5 @@
 <div th:each="user : ${users}">
        <p th:text="${user.getName() + ', ' + user.getEmail()}">Age</p>
 </div>
+<p th:text="${currentUser}"></p>
 </html>

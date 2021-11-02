@@ -31,20 +31,22 @@ public class AsmodianController {
     @PostMapping("/SignUp")
     public String getSignUp(@ModelAttribute("users") User user) {
         dataBaseController.registration(user);
-
         return  "redirect:/MainPage";
     }
 
     @PostMapping("/SignIn")
     public String getSignIn( @RequestParam("email") String email,
                             @RequestParam("password") String password){
-        currentUser.setEmail(email);
-        currentUser.setPassword(password);
+        String lel;
+        lel = dataBaseController.logIn(email,password);
+        currentUser.setEmail(lel);
+
         return  "redirect:/MainPage";
     }
     @GetMapping("/MainPage")
     public String MainPAge(Model model){
         model.addAttribute("users", dataBaseController.index());
+        model.addAttribute("currentUser",currentUser.getEmail());
         return "/MainPage";
     }
 }

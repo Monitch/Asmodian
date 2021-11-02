@@ -1,5 +1,6 @@
 package com.example.demo.DBController;
 
+import com.example.demo.CurrentUser.CurrentUser;
 import com.example.demo.Model.User;
 
 import java.sql.*;
@@ -64,5 +65,24 @@ public class DataBaseController {
             throwables.printStackTrace();
         }
     }
+    public String logIn(String email, String password){
+        String name = "";
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "select * from userbd where email = ? and password = ?");
+            preparedStatement.setString(1,email);
+            preparedStatement.setString(2,password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                name = resultSet.getString("email");
+            }
+            return name;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return name;
+    }
+
 
 }
