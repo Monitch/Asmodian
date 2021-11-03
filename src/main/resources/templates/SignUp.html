@@ -19,8 +19,13 @@
         <label for="password">Enter password: </label>
         <input type="text" th:field="*{password}" id="password"/>
         <br/>
-        <label for="doctor">Enter doctor: </label>
-        <input type="text" th:field="*{doctor}" id="doctor"/>
+        <label for="password">chose doctor: </label>
+        <select th:field="*{doctor}">
+            <option value=""> -- </option>
+            <option th:each="doctor : ${doctorList}"
+                    th:value="${doctor}"
+                    th:text="${doctor}"></option>
+        </select>
         <br/>
         <input type="submit" value="Create!"/>
     </form>

@@ -83,6 +83,22 @@ public class DataBaseController {
         }
         return name;
     }
+    public ArrayList<String> getAllDoctor(){
+        ArrayList<String> doctorList = new ArrayList<>() ;
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "select * from userbd where doctor='doctor'");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                 doctorList.add(resultSet.getString("name"));
+            }
+            return doctorList;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return doctorList;
+    }
 
 
 }

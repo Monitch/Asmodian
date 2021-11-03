@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:each="user : ${users}">
-       <p th:text="${user.getName() + ', ' + user.getEmail()}">Age</p>
+       <p th:text="${user.getName() + ', ' + user.getEmail() + ', ' + user.getDoctor()}">Age</p>
 </div>
 <p th:text="${currentUser}"></p>
 </html>

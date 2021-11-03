@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @Controller
 public class AsmodianController {
 
@@ -18,19 +20,25 @@ public class AsmodianController {
     public String index() {
         return "redirect:/SignIn";
     }
+
     @GetMapping("/SignIn")
     public String SignIn(){
         return "/SignIn";
     }
+
     @GetMapping("/SignUp")
     public String SignUp(Model model){
+        ArrayList<String> doctorList;
+        doctorList=dataBaseController.getAllDoctor();
         model.addAttribute("users",new User());
+        model.addAttribute("doctorList", doctorList);
         return "/SignUp";
     }
 
     @PostMapping("/SignUp")
     public String getSignUp(@ModelAttribute("users") User user) {
         dataBaseController.registration(user);
+        currentUser.setEmail(user.getEmail());
         return  "redirect:/MainPage";
     }
 
