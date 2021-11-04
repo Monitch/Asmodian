@@ -48,6 +48,34 @@ public class DataBaseController {
         }
         return users;
     }
+
+    public User findById(int id){
+        User user = null;
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement("SELECT * FROM userbd WHERE id=?");
+
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+
+            user = new User();
+
+            user.setId(resultSet.getInt("id"));
+            user.setName(resultSet.getString("name"));
+            user.setEmail(resultSet.getString("email"));
+            user.setNumber(resultSet.getString("number"));
+            user.setPassword(resultSet.getString("password"));
+            user.setDoctor(resultSet.getString("doctor"));
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return user;
+    }
+
     public void registration(User user){
         try {
             PreparedStatement preparedStatement =
@@ -65,8 +93,8 @@ public class DataBaseController {
             throwables.printStackTrace();
         }
     }
-    public String logIn(String email, String password){
-        String name = "";
+    public CurrentUser logIn(String email, String password){
+        CurrentUser currentUser = new CurrentUser();
         try {
             PreparedStatement preparedStatement =
                     connection.prepareStatement(
@@ -75,13 +103,14 @@ public class DataBaseController {
             preparedStatement.setString(2,password);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
-                name = resultSet.getString("email");
+                currentUser.setEmail(resultSet.getString("email"));
+                currentUser.setDoctor(resultSet.getString("doctor"));
             }
-            return name;
+            return currentUser;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return name;
+        return currentUser;
     }
     public ArrayList<String> getAllDoctor(){
         ArrayList<String> doctorList = new ArrayList<>() ;

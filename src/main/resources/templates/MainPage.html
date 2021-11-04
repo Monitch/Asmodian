@@ -5,8 +5,15 @@
     <title>Title</title>
 </head>
 <body>
-<div th:each="user : ${users}">
-       <p th:text="${user.getName() + ', ' + user.getEmail() + ', ' + user.getDoctor()}">Age</p>
+<div th:if = "${currentUser.getDoctor() == 'doctor'}">
+    <p> DOCTOREBAT</p>
 </div>
-<p th:text="${currentUser}"></p>
+<div th:if = "${currentUser.getDoctor() != 'doctor'}">
+    <p> NEDOCTOREBAT</p>
+</div>
+<a href="/UserList">Список користувачів</a>
+
+<p th:text="${currentUser.getEmail()}"></p>
+<p th:text="${currentUser.getDoctor()}"></p>
+</body>
 </html>

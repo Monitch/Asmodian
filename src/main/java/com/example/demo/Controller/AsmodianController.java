@@ -20,10 +20,21 @@ public class AsmodianController {
     public String index() {
         return "redirect:/SignIn";
     }
+    @GetMapping("/{id}")
+    public String show(@PathVariable("id") int id, Model model) {
+        model.addAttribute("user", dataBaseController.findById(id));
+        return "/UserShow";
+    }
 
     @GetMapping("/SignIn")
     public String SignIn(){
         return "/SignIn";
+    }
+
+    @GetMapping("/UserList")
+    public String UserList(Model model){
+        model.addAttribute("users", dataBaseController.index());
+        return "/UserList";
     }
 
     @GetMapping("/SignUp")
@@ -39,22 +50,20 @@ public class AsmodianController {
     public String getSignUp(@ModelAttribute("users") User user) {
         dataBaseController.registration(user);
         currentUser.setEmail(user.getEmail());
+        currentUser.setDoctor(user.getDoctor());
         return  "redirect:/MainPage";
     }
 
     @PostMapping("/SignIn")
     public String getSignIn( @RequestParam("email") String email,
                             @RequestParam("password") String password){
-        String lel;
-        lel = dataBaseController.logIn(email,password);
-        currentUser.setEmail(lel);
-
+        currentUser = dataBaseController.logIn(email,password);
         return  "redirect:/MainPage";
     }
     @GetMapping("/MainPage")
     public String MainPAge(Model model){
         model.addAttribute("users", dataBaseController.index());
-        model.addAttribute("currentUser",currentUser.getEmail());
+        model.addAttribute("currentUser",currentUser);
         return "/MainPage";
     }
 }

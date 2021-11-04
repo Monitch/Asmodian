@@ -4,6 +4,15 @@ public class CurrentUser {
 
     private String email = "DADA";
     private String password = "NETNET";
+    private String doctor = "null";
+
+    public String getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(String doctor) {
+        this.doctor = doctor;
+    }
 
     public String getPassword() {
         return password;
