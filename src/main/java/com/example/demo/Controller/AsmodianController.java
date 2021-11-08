@@ -7,6 +7,7 @@ import com.example.demo.Model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ public class AsmodianController {
     public String index() {
         return "redirect:/SignIn";
     }
+
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", dataBaseController.findById(id));
@@ -27,61 +29,71 @@ public class AsmodianController {
     }
 
     @GetMapping("/MeetingPage")
-    public String MeetingPage(Model model){
-        model.addAttribute("test","Future functional for meetingpage");
+    public String MeetingPage(Model model) {
+        model.addAttribute("test", "Future functional for meetingpage");
         return "/MeetingPage";
     }
+
     @GetMapping("/AddMeeting")
-    public String AddMeeting(Model model){
-        model.addAttribute("test","Future addingpage");
+    public String AddMeeting(Model model) {
+        model.addAttribute("test", "Future addingpage");
         return "/AddMeeting";
     }
 
     @GetMapping("/SignIn")
-    public String SignIn(){
+    public String SignIn() {
         return "/SignIn";
     }
 
     @GetMapping("/UserList")
-    public String UserList(Model model){
+    public String UserList(Model model) {
         model.addAttribute("users", dataBaseController.index());
         return "/UserList";
     }
 
     @GetMapping("/SignUp")
-    public String SignUp(Model model){
+    public String SignUp(Model model) {
         ArrayList<String> doctorList;
-        doctorList=dataBaseController.getAllDoctor();
-        model.addAttribute("users",new User());
+        doctorList = dataBaseController.getAllDoctor();
+        model.addAttribute("users", new User());
         model.addAttribute("doctorList", doctorList);
         return "/SignUp";
     }
 
-    @PostMapping ("UserList")
-    public String UserListPost(@RequestParam ("name") String name,
-                               Model model){
-        model.addAttribute("users",dataBaseController.findByName(name));
+    @PostMapping("UserList")
+    public String UserListPost(@RequestParam("name") String name,
+                               Model model) {
+        model.addAttribute("users", dataBaseController.findByName(name));
         return "UserList";
 
     }
+
     @PostMapping("/SignUp")
     public String getSignUp(@ModelAttribute("users") User user) {
         dataBaseController.registration(user);
         currentUser.setEmail(user.getEmail());
         currentUser.setDoctor(user.getDoctor());
-        return  "redirect:/MainPage";
+        return "redirect:/MainPage";
     }
 
     @PostMapping("/SignIn")
-    public String getSignIn( @RequestParam("email") String email,
-                            @RequestParam("password") String password){
-        currentUser = dataBaseController.logIn(email,password);
-        return  "redirect:/MainPage";
+    public String getSignIn(@RequestParam("email") String email,
+                            @RequestParam("password") String password) {
+        currentUser = dataBaseController.logIn(email, password);
+        return "redirect:/MainPage";
     }
+
     @GetMapping("/MainPage")
-    public String MainPAge(Model model){
+    public String MainPAge(Model model,
+                           RedirectAttributes redirectAttributes) {
         model.addAttribute("users", dataBaseController.index());
-        model.addAttribute("currentUser",currentUser);
-        return "/MainPage";
+        model.addAttribute("currentUser", currentUser);
+        if (!currentUser.getEmail().equals("DADA"))
+            return "/MainPage";
+        else {
+            redirectAttributes.addFlashAttribute(
+                    "redirect", "Введені данні не правильні");
+            return "redirect:/SignIn";
+        }
     }
 }
