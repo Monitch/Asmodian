@@ -2,24 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Реєстрація</title>
 </head>
 <body>
 <div class="aaa">
     <form th:method="POST" th:action="@{SignUp}" th:object="${users}">
-        <label for="name">Enter name: </label>
+        <label for="name">Введіть ім'я: </label>
         <input type="text" th:field="*{name}" id="name"/>
         <br/>
-        <label for="email">Enter email: </label>
+        <label for="email">Введіть емайл: </label>
         <input type="text" th:field="*{email}" id="email"/>
         <br/>
-        <label for="number">Enter number: </label>
+        <label for="number">Введіть номер телефону: </label>
         <input type="text" th:field="*{number}" id="number"/>
         <br/>
-        <label for="password">Enter password: </label>
-        <input type="text" th:field="*{password}" id="password"/>
+        <label for="password">Введіть пароль: </label>
+        <input type="password" th:field="*{password}" id="password"/>
         <br/>
-        <label for="password">chose doctor: </label>
+        <label for="password">Виберіть вашого лікаря: </label>
         <select th:field="*{doctor}">
             <option value=""> -- </option>
             <option th:each="doctor : ${doctorList}"
@@ -27,7 +27,7 @@
                     th:text="${doctor}"></option>
         </select>
         <br/>
-        <input type="submit" value="Create!"/>
+        <input type="submit" value="Зареєструватися"/>
     </form>
 </div>
 <a href="/SignIn">Вже маєш акаунт?</a>
