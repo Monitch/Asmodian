@@ -5,6 +5,14 @@
     <title>Title</title>
 </head>
 <body>
+<a href="/MainPage">Назад</a>
+<form method="Post">
+    <label for="name">Ім'я</label>
+    <br>
+    <input type="text" id="name" name="name" placeholder="Введдіть ім'я">
+    <br>
+    <input type="submit" value="Convert"/>
+</form>
 <div th:each="user : ${users}">
     <a th:href="@{/{id}(id=${user.getId()})}" th:text="${user.getName()}">user</a>
     <p th:text="${user.getEmail() + ', ' + user.getDoctor()}">Age</p>

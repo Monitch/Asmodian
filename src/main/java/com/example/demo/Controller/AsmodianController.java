@@ -57,6 +57,13 @@ public class AsmodianController {
         return "/SignUp";
     }
 
+    @PostMapping ("UserList")
+    public String UserListPost(@RequestParam ("name") String name,
+                               Model model){
+        model.addAttribute("users",dataBaseController.findByName(name));
+        return "UserList";
+
+    }
     @PostMapping("/SignUp")
     public String getSignUp(@ModelAttribute("users") User user) {
         dataBaseController.registration(user);

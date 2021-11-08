@@ -75,6 +75,32 @@ public class DataBaseController {
         }
         return user;
     }
+    public List<User> findByName(String name){
+        List<User> users = new ArrayList<User>();
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement("SELECT * FROM userbd WHERE name like ?");
+
+            preparedStatement.setString(1,"%" + name + "%");
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                User userr = new User();
+                userr.setId(resultSet.getInt("id"));
+                userr.setName(resultSet.getString("name"));
+                userr.setEmail(resultSet.getString("email"));
+                userr.setNumber(resultSet.getString("number"));
+                userr.setPassword(resultSet.getString("password"));
+                userr.setDoctor(resultSet.getString("doctor"));
+                users.add(userr);
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return users;
+    }
 
     public void registration(User user){
         try {
