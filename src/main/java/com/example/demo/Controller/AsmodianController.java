@@ -26,6 +26,17 @@ public class AsmodianController {
         return "/UserShow";
     }
 
+    @GetMapping("/MeetingPage")
+    public String MeetingPage(Model model){
+        model.addAttribute("test","Future functional for meetingpage");
+        return "/MeetingPage";
+    }
+    @GetMapping("/AddMeeting")
+    public String AddMeeting(Model model){
+        model.addAttribute("test","Future addingpage");
+        return "/AddMeeting";
+    }
+
     @GetMapping("/SignIn")
     public String SignIn(){
         return "/SignIn";
