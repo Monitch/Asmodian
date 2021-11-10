@@ -5,7 +5,15 @@
     <title>Ваші зустрічі</title>
 </head>
 <body>
-<a href="/AddMeeting">Додати зустріч</a>
-<p th:text = "${test}"></p>
+<div th:if = "${currentUser.getDoctor() != 'doctor'}">
+    <a href="/AddMeeting">Додати зустріч</a>
+</div>
+<div th:if = "${currentUser.getDoctor() == 'doctor'}">
+    <a href="/ApproveMeeting">Затвердити зустріч</a>
+</div>
+<div th:each="meeting : ${meetingList}">
+    <p th:text="${meeting.getEmail() + ', ' + meeting.getDoctor() + ', ' + meeting.getDate() + ', ' + meeting.getApproved()}">Age</p>
+</div>
+<a href="/MainPage">Назад</a>
 </body>
 </html>

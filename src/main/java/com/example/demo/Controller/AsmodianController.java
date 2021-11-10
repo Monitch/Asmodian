@@ -30,7 +30,9 @@ public class AsmodianController {
 
     @GetMapping("/MeetingPage")
     public String MeetingPage(Model model) {
-        model.addAttribute("test", "Future functional for meetingpage");
+        model.addAttribute("currentUser", currentUser);
+        model.addAttribute(
+                "meetingList",dataBaseController.getAllMeetingOfCurrentUser(currentUser.getEmail()));
         return "/MeetingPage";
     }
 
@@ -38,6 +40,11 @@ public class AsmodianController {
     public String AddMeeting(Model model) {
         model.addAttribute("test", "Future addingpage");
         return "/AddMeeting";
+    }
+    @GetMapping("/ApproveMeeting")
+    public String ApproveMeeting(Model model){
+        model.addAttribute("test","ApprovingMeeting");
+        return "/ApproveMeeting";
     }
 
     @GetMapping("/SignIn")

@@ -1,6 +1,7 @@
 package com.example.demo.DBController;
 
 import com.example.demo.CurrentUser.CurrentUser;
+import com.example.demo.Model.Meeting;
 import com.example.demo.Model.User;
 
 import java.sql.*;
@@ -47,6 +48,30 @@ public class DataBaseController {
             throwables.printStackTrace();
         }
         return users;
+    }
+    public List<Meeting> getAllMeetingOfCurrentUser(String email){
+        List<Meeting> meeting = new ArrayList<Meeting>();
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement("SELECT * FROM meetingdb WHERE email=?");
+
+            preparedStatement.setString(1,email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                Meeting meet = new Meeting();
+                meet.setId(resultSet.getInt("id"));
+                meet.setName(resultSet.getString("name"));
+                meet.setEmail(resultSet.getString("email"));
+                meet.setDoctor(resultSet.getString("doctor"));
+                meet.setApproved(resultSet.getString("approved"));
+                meet.setDate(resultSet.getString("date"));
+                meeting.add(meet);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return meeting;
     }
 
     public User findById(int id){
