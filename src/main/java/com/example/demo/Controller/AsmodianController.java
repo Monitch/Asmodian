@@ -31,8 +31,14 @@ public class AsmodianController {
     @GetMapping("/MeetingPage")
     public String MeetingPage(Model model) {
         model.addAttribute("currentUser", currentUser);
-        model.addAttribute(
-                "meetingList",dataBaseController.getAllMeetingOfCurrentUser(currentUser.getEmail()));
+        if (currentUser.getDoctor().equals("doctor")){
+            model.addAttribute(
+                    "meetingList",dataBaseController.getAllMeetingOfCurrentDoctor(currentUser.getName()));
+        }
+        if (!currentUser.getDoctor().equals("doctor")) {
+            model.addAttribute(
+                    "meetingList", dataBaseController.getAllMeetingOfCurrentUser(currentUser.getEmail()));
+        }
         return "/MeetingPage";
     }
 
