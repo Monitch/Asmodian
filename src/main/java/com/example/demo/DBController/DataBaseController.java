@@ -73,6 +73,21 @@ public class DataBaseController {
         }
         return meeting;
     }
+    public void addNewMeeting(String name, String email, String doctor, String date){
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "INSERT INTO meetingdb (name, email, doctor, approved, date) VALUES (?,?,?,?,?)");
+            preparedStatement.setString(1,name);
+            preparedStatement.setString(2,email);
+            preparedStatement.setString(3,doctor);
+            preparedStatement.setString(4,"waiting");
+            preparedStatement.setString(5,date);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
     public User findById(int id){
         User user = null;

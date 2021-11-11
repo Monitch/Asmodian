@@ -5,6 +5,12 @@
     <title>Записатися на прийом</title>
 </head>
 <body>
-<p th:text = "${test}"></p>
+<form method="Post">
+    <label for="data"> Виберіть дату прийому!</label>
+    <br>
+    <input type="datetime-local" id="data" name="data">
+    <br>
+    <input type="submit" value="Підтвердити дату"/>
+</form>
 </body>
 </html>

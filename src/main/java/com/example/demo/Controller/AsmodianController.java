@@ -41,6 +41,16 @@ public class AsmodianController {
         model.addAttribute("test", "Future addingpage");
         return "/AddMeeting";
     }
+    @PostMapping("/AddMeeting")
+    public String AddNewMeeting(@RequestParam ("data") String date){
+        dataBaseController.addNewMeeting(currentUser.getName(),
+                currentUser.getEmail(),
+                currentUser.getDoctor(),
+                date);
+
+        return "redirect:/MeetingPage";
+    }
+
     @GetMapping("/ApproveMeeting")
     public String ApproveMeeting(Model model){
         model.addAttribute("test","ApprovingMeeting");
@@ -72,12 +82,12 @@ public class AsmodianController {
                                Model model) {
         model.addAttribute("users", dataBaseController.findByName(name));
         return "UserList";
-
     }
 
     @PostMapping("/SignUp")
     public String getSignUp(@ModelAttribute("users") User user) {
         dataBaseController.registration(user);
+        currentUser.setName(user.getName());
         currentUser.setEmail(user.getEmail());
         currentUser.setDoctor(user.getDoctor());
         return "redirect:/MainPage";

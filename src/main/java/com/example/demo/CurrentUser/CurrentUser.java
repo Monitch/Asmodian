@@ -5,6 +5,15 @@ public class CurrentUser {
     private String email = "DADA";
     private String password = "NETNET";
     private String doctor = "null";
+    private String name = "null";
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getDoctor() {
         return doctor;
