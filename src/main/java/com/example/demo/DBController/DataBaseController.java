@@ -53,7 +53,7 @@ public class DataBaseController {
         List<Meeting> meeting = new ArrayList<Meeting>();
         try {
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("SELECT * FROM meetingdb WHERE email=?");
+                    connection.prepareStatement("SELECT * FROM meetingdb WHERE email=? ORDER BY id");
 
             preparedStatement.setString(1,email);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -77,7 +77,7 @@ public class DataBaseController {
         List<Meeting> meeting = new ArrayList<Meeting>();
         try {
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("SELECT * FROM meetingdb WHERE doctor=?");
+                    connection.prepareStatement("SELECT * FROM meetingdb WHERE doctor=? ORDER BY id");
 
             preparedStatement.setString(1,name);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -220,5 +220,17 @@ public class DataBaseController {
         return doctorList;
     }
 
+    public void UpdateMeeting(String value,int id){
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "UPDATE meetingdb set approved = ? where id=?");
+            preparedStatement.setString(1,value);
+            preparedStatement.setInt(2,id);
 
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }

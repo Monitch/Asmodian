@@ -27,7 +27,6 @@ public class AsmodianController {
         model.addAttribute("user", dataBaseController.findById(id));
         return "/UserShow";
     }
-
     @GetMapping("/MeetingPage")
     public String MeetingPage(Model model) {
         model.addAttribute("currentUser", currentUser);
@@ -39,6 +38,7 @@ public class AsmodianController {
             model.addAttribute(
                     "meetingList", dataBaseController.getAllMeetingOfCurrentUser(currentUser.getEmail()));
         }
+
         return "/MeetingPage";
     }
 
@@ -56,13 +56,18 @@ public class AsmodianController {
 
         return "redirect:/MeetingPage";
     }
+    @PostMapping("MeetingPage")
+    public String approveMeeting(@RequestParam(value="action", required=true) String action,
+                                 @RequestParam (value = "id",required = true) int id){
+        if (action.equals("save")) {
+            dataBaseController.UpdateMeeting("true",id);
+        }
 
-    @GetMapping("/ApproveMeeting")
-    public String ApproveMeeting(Model model){
-        model.addAttribute("test","ApprovingMeeting");
-        return "/ApproveMeeting";
+        if (action.equals("cancel")) {
+            dataBaseController.UpdateMeeting("false",id);
+        }
+        return "redirect:/MeetingPage";
     }
-
     @GetMapping("/SignIn")
     public String SignIn() {
         return "/SignIn";
