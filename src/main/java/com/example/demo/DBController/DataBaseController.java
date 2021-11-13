@@ -220,6 +220,40 @@ public class DataBaseController {
         return doctorList;
     }
 
+    public ArrayList<String> getAllPatient(String doctor){
+        ArrayList<String> doctorList = new ArrayList<>() ;
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "select * from userbd where doctor<>'doctor' AND doctor=?");
+            preparedStatement.setString(1,doctor);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                doctorList.add(resultSet.getString("name"));
+            }
+            return doctorList;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return doctorList;
+    }
+    public String getEmailFor(String role, String email){
+        String resEmail = null;
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "select * from userbd where doctor<>'doctor' AND doctor=?");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                resEmail = (resultSet.getString("name"));
+            }
+            return resEmail;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return resEmail;
+    }
+
     public void UpdateMeeting(String value,int id){
         try {
             PreparedStatement preparedStatement =

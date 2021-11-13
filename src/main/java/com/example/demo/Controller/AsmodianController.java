@@ -53,6 +53,14 @@ public class AsmodianController {
         model.addAttribute("users", dataBaseController.index());
         return "/UserList";
     }
+    @GetMapping ("/SetDisease")
+    public String setDisease(Model model){
+        model.addAttribute("test", "Діагноз тест");
+        ArrayList<String> patientList;
+        patientList = dataBaseController.getAllPatient(currentUser.getName());
+        model.addAttribute("patientList", patientList);
+        return "/SetDisease";
+    }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
@@ -122,5 +130,13 @@ public class AsmodianController {
                 date);
 
         return "redirect:/MeetingPage";
+    }
+    @PostMapping("/SetDisease")
+    public String setDiseaseForPatient(@RequestParam("namePatient")  String namePatient,
+                                       @RequestParam("disease") String disease,
+                                       @RequestParam("medicine") String medicine){
+
+        System.out.println(namePatient+currentUser.getName()+disease+medicine);
+        return "redirect:/MainPage";
     }
 }

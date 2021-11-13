@@ -5,6 +5,26 @@
     <title>Title</title>
 </head>
 <body>
-
+<p th:text="${test}"></p>
+<form method="Post">
+    <label for="namePatient"> Виберіть пацієнта </label>
+    <select id="namePatient" name="namePatient">
+        <option value=""> -- </option>
+        <option th:each="patient : ${patientList}"
+                th:value="${patient}"
+                th:text="${patient}"></option>
+    </select>
+    <br/>
+    <label for="disease">Діагноз</label>
+    <br>
+    <input type="text" id="disease" name="disease" placeholder="Введдіть діагноз">
+    <br>
+    <label for="medicine">Призначити лікування</label>
+    <br>
+    <input type="text" id="medicine" name="medicine" placeholder="Введдіть лікування">
+    <br>
+    <br>
+    <input type="submit" value="Поставити"/>
+</form>
 </body>
 </html>
