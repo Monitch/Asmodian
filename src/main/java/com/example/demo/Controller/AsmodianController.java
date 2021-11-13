@@ -21,6 +21,38 @@ public class AsmodianController {
     public String index() {
         return "redirect:/SignIn";
     }
+    @GetMapping("/SignIn")
+    public String SignIn() {
+        return "/SignIn";
+    }
+
+    @GetMapping("/SignUp")
+    public String SignUp(Model model) {
+        ArrayList<String> doctorList;
+        doctorList = dataBaseController.getAllDoctor();
+        model.addAttribute("users", new User());
+        model.addAttribute("doctorList", doctorList);
+        return "/SignUp";
+    }
+
+    @GetMapping("/MainPage")
+    public String MainPAge(Model model,
+                           RedirectAttributes redirectAttributes) {
+        model.addAttribute("users", dataBaseController.index());
+        model.addAttribute("currentUser", currentUser);
+        if (!currentUser.getEmail().equals("DADA"))
+            return "/MainPage";
+        else {
+            redirectAttributes.addFlashAttribute(
+                    "redirect", "Введені данні не правильні");
+            return "redirect:/SignIn";
+        }
+    }
+    @GetMapping("/UserList")
+    public String UserList(Model model) {
+        model.addAttribute("users", dataBaseController.index());
+        return "/UserList";
+    }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
@@ -44,55 +76,7 @@ public class AsmodianController {
 
     @GetMapping("/AddMeeting")
     public String AddMeeting(Model model) {
-        model.addAttribute("test", "Future addingpage");
         return "/AddMeeting";
-    }
-    @PostMapping("/AddMeeting")
-    public String AddNewMeeting(@RequestParam ("data") String date){
-        dataBaseController.addNewMeeting(currentUser.getName(),
-                currentUser.getEmail(),
-                currentUser.getDoctor(),
-                date);
-
-        return "redirect:/MeetingPage";
-    }
-    @PostMapping("MeetingPage")
-    public String approveMeeting(@RequestParam(value="action", required=true) String action,
-                                 @RequestParam (value = "id",required = true) int id){
-        if (action.equals("save")) {
-            dataBaseController.UpdateMeeting("true",id);
-        }
-
-        if (action.equals("cancel")) {
-            dataBaseController.UpdateMeeting("false",id);
-        }
-        return "redirect:/MeetingPage";
-    }
-    @GetMapping("/SignIn")
-    public String SignIn() {
-        return "/SignIn";
-    }
-
-    @GetMapping("/UserList")
-    public String UserList(Model model) {
-        model.addAttribute("users", dataBaseController.index());
-        return "/UserList";
-    }
-
-    @GetMapping("/SignUp")
-    public String SignUp(Model model) {
-        ArrayList<String> doctorList;
-        doctorList = dataBaseController.getAllDoctor();
-        model.addAttribute("users", new User());
-        model.addAttribute("doctorList", doctorList);
-        return "/SignUp";
-    }
-
-    @PostMapping("UserList")
-    public String UserListPost(@RequestParam("name") String name,
-                               Model model) {
-        model.addAttribute("users", dataBaseController.findByName(name));
-        return "UserList";
     }
 
     @PostMapping("/SignUp")
@@ -111,17 +95,32 @@ public class AsmodianController {
         return "redirect:/MainPage";
     }
 
-    @GetMapping("/MainPage")
-    public String MainPAge(Model model,
-                           RedirectAttributes redirectAttributes) {
-        model.addAttribute("users", dataBaseController.index());
-        model.addAttribute("currentUser", currentUser);
-        if (!currentUser.getEmail().equals("DADA"))
-            return "/MainPage";
-        else {
-            redirectAttributes.addFlashAttribute(
-                    "redirect", "Введені данні не правильні");
-            return "redirect:/SignIn";
+    @PostMapping("UserList")
+    public String UserListPost(@RequestParam("name") String name,
+                               Model model) {
+        model.addAttribute("users", dataBaseController.findByName(name));
+        return "UserList";
+    }
+
+    @PostMapping("MeetingPage")
+    public String approveMeeting(@RequestParam(value="action", required=true) String action,
+                                 @RequestParam (value = "id",required = true) int id){
+        if (action.equals("save")) {
+            dataBaseController.UpdateMeeting("true",id);
         }
+
+        if (action.equals("cancel")) {
+            dataBaseController.UpdateMeeting("false",id);
+        }
+        return "redirect:/MeetingPage";
+    }
+    @PostMapping("/AddMeeting")
+    public String AddNewMeeting(@RequestParam ("data") String date){
+        dataBaseController.addNewMeeting(currentUser.getName(),
+                currentUser.getEmail(),
+                currentUser.getDoctor(),
+                date);
+
+        return "redirect:/MeetingPage";
     }
 }

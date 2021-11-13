@@ -16,8 +16,8 @@
         <p th:text="${meeting.getEmail() + ', ' + meeting.getDoctor() + ', ' + meeting.getDate() + ', ' + meeting.getApproved()}">Age</p>
         <form method="Post">
             <input type="hidden" name="id" th:value="${meeting.getId()}">
-            <button type="submit" name="action" value="save">save</button>
-            <button type="submit" name="action" value="cancel">cancel</button>
+            <button type="submit" name="action" value="save">Підтвердити</button>
+            <button type="submit" name="action" value="cancel">Скасувати</button>
         </form>
     </div>
 </div>
