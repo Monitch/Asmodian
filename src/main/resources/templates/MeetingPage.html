@@ -8,12 +8,12 @@
 <div th:if = "${currentUser.getDoctor() != 'doctor'}">
     <a href="/AddMeeting">Додати зустріч</a>
     <div th:each="meeting : ${meetingList}">
-        <p th:text="${meeting.getEmail() + ', ' + meeting.getDoctor() + ', ' + meeting.getDate() + ', ' + meeting.getApproved()}">Age</p>
+        <p th:text="${meeting.getName() + ', ' + meeting.getDoctor() + ', ' + meeting.getDate() + ', ' + meeting.getApproved()}">Age</p>
     </div>
 </div>
 <div th:if = "${currentUser.getDoctor() == 'doctor'}">
     <div th:each="meeting : ${meetingList}">
-        <p th:text="${meeting.getEmail() + ', ' + meeting.getDoctor() + ', ' + meeting.getDate() + ', ' + meeting.getApproved()}">Age</p>
+        <p th:text="${meeting.getName() + ', ' + meeting.getDoctor() + ', ' + meeting.getDate() + ', ' + meeting.getApproved()}">Age</p>
         <form method="Post">
             <input type="hidden" name="id" th:value="${meeting.getId()}">
             <button type="submit" name="action" value="save">Підтвердити</button>
