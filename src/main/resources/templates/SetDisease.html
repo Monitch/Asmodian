@@ -8,11 +8,11 @@
 <p th:text="${test}"></p>
 <form method="Post">
     <label for="namePatient"> Виберіть пацієнта </label>
-    <select id="namePatient" name="namePatient">
+    <select id="namePatient" name="numberPatient">
         <option value=""> -- </option>
-        <option th:each="patient : ${patientList}"
-                th:value="${patient}"
-                th:text="${patient}"></option>
+        <option th:each="ListForDropDown : ${patientList}"
+                th:value="${ListForDropDown.getNumber}"
+                th:text="${ListForDropDown.getName() +', '+ListForDropDown.getNumber()}"></option>
     </select>
     <br/>
     <label for="disease">Діагноз</label>

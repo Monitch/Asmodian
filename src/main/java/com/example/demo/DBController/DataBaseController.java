@@ -1,6 +1,8 @@
 package com.example.demo.DBController;
 
 import com.example.demo.CurrentUser.CurrentUser;
+import com.example.demo.Model.Disease;
+import com.example.demo.Model.ListForDropDown;
 import com.example.demo.Model.Meeting;
 import com.example.demo.Model.User;
 
@@ -203,15 +205,18 @@ public class DataBaseController {
         }
         return currentUser;
     }
-    public ArrayList<String> getAllDoctor(){
-        ArrayList<String> doctorList = new ArrayList<>() ;
+    public ArrayList<ListForDropDown> getAllDoctor(){
+        ArrayList<ListForDropDown> doctorList = new ArrayList<>() ;
         try {
             PreparedStatement preparedStatement =
                     connection.prepareStatement(
                             "select * from userbd where doctor='doctor'");
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
-                 doctorList.add(resultSet.getString("name"));
+                ListForDropDown listForDropDown = new ListForDropDown();
+                listForDropDown.setName(resultSet.getString("name"));
+                listForDropDown.setNumber(resultSet.getString("number"));
+                doctorList.add(listForDropDown);
             }
             return doctorList;
         } catch (SQLException throwables) {
@@ -220,8 +225,8 @@ public class DataBaseController {
         return doctorList;
     }
 
-    public ArrayList<String> getAllPatient(String doctor){
-        ArrayList<String> doctorList = new ArrayList<>() ;
+    public ArrayList<ListForDropDown> getAllPatient(String doctor){
+        ArrayList<ListForDropDown> doctorList = new ArrayList<>() ;
         try {
             PreparedStatement preparedStatement =
                     connection.prepareStatement(
@@ -229,7 +234,10 @@ public class DataBaseController {
             preparedStatement.setString(1,doctor);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
-                doctorList.add(resultSet.getString("name"));
+                ListForDropDown list = new ListForDropDown();
+                list.setName(resultSet.getString("name"));
+                list.setNumber(resultSet.getString("number"));
+                doctorList.add(list);
             }
             return doctorList;
         } catch (SQLException throwables) {
@@ -261,6 +269,40 @@ public class DataBaseController {
                             "UPDATE meetingdb set approved = ? where id=?");
             preparedStatement.setString(1,value);
             preparedStatement.setInt(2,id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public String getUserByNumber(String number){
+        String res=null;
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "select * from userbd where number =?");
+            preparedStatement.setString(1,number);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                res=resultSet.getString("name");
+            }
+            return res;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return res;
+
+    }
+    public void setDisease(Disease disease){
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "INSERT INTO disease (name, number, doctor, disease, medicine) values (?,?,?,?,?)");
+            preparedStatement.setString(1,disease.getName());
+            preparedStatement.setString(2,disease.getNumber());
+            preparedStatement.setString(3,disease.getDoctor());
+            preparedStatement.setString(4,disease.getDisease());
+            preparedStatement.setString(5, disease.getMedicine());
 
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {

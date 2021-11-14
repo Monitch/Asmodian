@@ -3,7 +3,7 @@ package com.example.demo.Model;
 public class Disease {
     private int id;
     private String name;
-    private String email;
+    private String number;
     private String doctor;
     private String disease;
     private String medicine;
@@ -24,12 +24,12 @@ public class Disease {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getNumber() {
+        return number;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getDoctor() {

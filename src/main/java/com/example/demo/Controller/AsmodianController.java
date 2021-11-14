@@ -3,6 +3,8 @@ package com.example.demo.Controller;
 
 import com.example.demo.CurrentUser.CurrentUser;
 import com.example.demo.DBController.DataBaseController;
+import com.example.demo.Model.Disease;
+import com.example.demo.Model.ListForDropDown;
 import com.example.demo.Model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +30,7 @@ public class AsmodianController {
 
     @GetMapping("/SignUp")
     public String SignUp(Model model) {
-        ArrayList<String> doctorList;
+        ArrayList<ListForDropDown> doctorList;
         doctorList = dataBaseController.getAllDoctor();
         model.addAttribute("users", new User());
         model.addAttribute("doctorList", doctorList);
@@ -56,7 +58,7 @@ public class AsmodianController {
     @GetMapping ("/SetDisease")
     public String setDisease(Model model){
         model.addAttribute("test", "Діагноз тест");
-        ArrayList<String> patientList;
+        ArrayList<ListForDropDown> patientList;
         patientList = dataBaseController.getAllPatient(currentUser.getName());
         model.addAttribute("patientList", patientList);
         return "/SetDisease";
@@ -132,11 +134,16 @@ public class AsmodianController {
         return "redirect:/MeetingPage";
     }
     @PostMapping("/SetDisease")
-    public String setDiseaseForPatient(@RequestParam("namePatient")  String namePatient,
+    public String setDiseaseForPatient(@RequestParam("numberPatient")  String numberPatient,
                                        @RequestParam("disease") String disease,
                                        @RequestParam("medicine") String medicine){
-
-        System.out.println(namePatient+currentUser.getName()+disease+medicine);
+        Disease disease1 = new Disease();
+        disease1.setName(dataBaseController.getUserByNumber(numberPatient));
+        disease1.setNumber(numberPatient);
+        disease1.setDoctor(currentUser.getName());
+        disease1.setDisease(disease);
+        disease1.setMedicine(medicine);
+        dataBaseController.setDisease(disease1);
         return "redirect:/MainPage";
     }
 }

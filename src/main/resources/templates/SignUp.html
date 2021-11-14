@@ -21,10 +21,10 @@
         <br/>
         <label for="password">Виберіть вашого лікаря: </label>
         <select th:field="*{doctor}">
-            <option value=""> -- </option>
-            <option th:each="doctor : ${doctorList}"
-                    th:value="${doctor}"
-                    th:text="${doctor}"></option>
+            <option value=""> ------ </option>
+            <option th:each="ListForDropDown : ${doctorList}"
+                    th:value="${ListForDropDown.getName}"
+                    th:text="${ListForDropDown.getName() +', '+ListForDropDown.getNumber()}"></option>
         </select>
         <br/>
         <input type="submit" value="Зареєструватися"/>
