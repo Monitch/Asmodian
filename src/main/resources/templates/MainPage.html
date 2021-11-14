@@ -6,15 +6,16 @@
 </head>
 <body>
 <div th:if = "${currentUser.getDoctor() == 'doctor'}">
+    <p> Акаунт лікаря</p>
     <a href="/SetDisease">Поставити діагноз</a>
     <br/>
-    <p> Акаунт лікаря</p>
+    <a href="/UserList">Список користувачів</a>
+    <br/>
 </div>
 <div th:if = "${currentUser.getDoctor() != 'doctor'}">
     <p> Акаунт пацієнта</p>
+    <a href="/MyDisease">Мій діагноз</a>
 </div>
-<a href="/UserList">Список користувачів</a>
-<br/>
 <a href="/MeetingPage">Переглянути зустрічі</a>
 <br/>
 <p th:text="${currentUser.getName()}"></p>

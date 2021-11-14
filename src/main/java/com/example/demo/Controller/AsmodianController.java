@@ -50,6 +50,11 @@ public class AsmodianController {
             return "redirect:/SignIn";
         }
     }
+    @GetMapping("MyDisease")
+    public String MyDisease(Model model){
+        model.addAttribute("info",dataBaseController.getDisease(currentUser.getNumber()));
+        return "/MyDisease";
+    }
     @GetMapping("/UserList")
     public String UserList(Model model) {
         model.addAttribute("users", dataBaseController.index());
@@ -94,6 +99,7 @@ public class AsmodianController {
         dataBaseController.registration(user);
         currentUser.setName(user.getName());
         currentUser.setEmail(user.getEmail());
+        currentUser.setNumber(user.getNumber());
         currentUser.setDoctor(user.getDoctor());
         return "redirect:/MainPage";
     }

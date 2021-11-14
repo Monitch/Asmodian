@@ -145,9 +145,9 @@ public class DataBaseController {
         List<User> users = new ArrayList<User>();
         try {
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("SELECT * FROM userbd WHERE name like ?");
+                    connection.prepareStatement("SELECT * FROM userbd WHERE LOWER(name) like ?");
 
-            preparedStatement.setString(1,"%" + name + "%");
+            preparedStatement.setString(1,"%" + name.toLowerCase() + "%");
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -198,6 +198,7 @@ public class DataBaseController {
                 currentUser.setEmail(resultSet.getString("email"));
                 currentUser.setDoctor(resultSet.getString("doctor"));
                 currentUser.setName(resultSet.getString("name"));
+                currentUser.setNumber(resultSet.getString("number"));
             }
             return currentUser;
         } catch (SQLException throwables) {
@@ -308,5 +309,29 @@ public class DataBaseController {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+    public Disease getDisease(String number){
+        Disease disease= new Disease();
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "SELECT * FROM disease where number=?");
+            preparedStatement.setString(1,number);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                disease.setId(resultSet.getInt("id"));
+                disease.setName(resultSet.getString("name"));
+                disease.setNumber(resultSet.getString("number"));
+                disease.setDoctor(resultSet.getString("doctor"));
+                disease.setDisease(resultSet.getString("disease"));
+                disease.setMedicine(resultSet.getString("medicine"));
+
+            }
+            return disease;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return disease;
+
     }
 }
