@@ -13,12 +13,14 @@
 </div>
 <div th:if = "${currentUser.getDoctor() == 'doctor'}">
     <div th:each="meeting : ${meetingList}">
+        <div th:if="${meeting.getApproved()!='false'}">
         <p th:text="${meeting.getName() + ', ' + meeting.getDoctor() + ', ' + meeting.getDate() + ', ' + meeting.getApproved()}">Age</p>
         <form method="Post">
             <input type="hidden" name="id" th:value="${meeting.getId()}">
             <button type="submit" name="action" value="save">Підтвердити</button>
             <button type="submit" name="action" value="cancel">Скасувати</button>
         </form>
+        </div>
     </div>
 </div>
 <a href="/MainPage">Назад</a>

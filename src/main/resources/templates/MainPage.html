@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Головна сторінка</title>
+    <link th:href="@{/css/test.css}" rel="stylesheet" />
 </head>
 <body>
 <div th:if = "${currentUser.getDoctor() == 'doctor'}">
+    <div class="test">
     <p> Акаунт лікаря</p>
+    </div>
     <a href="/SetDisease">Поставити діагноз</a>
     <br/>
     <a href="/UserList">Список користувачів</a>
