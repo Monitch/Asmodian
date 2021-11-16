@@ -11,7 +11,7 @@
     <br>
     <input type="text" id="name" name="name" placeholder="Введдіть ім'я">
     <br>
-    <input type="submit" value="Convert"/>
+    <input type="submit" value="Пошук"/>
 </form>
 <div th:each="user : ${users}">
     <a th:href="@{/{id}(id=${user.getId()})}" th:text="${user.getName()}">user</a>

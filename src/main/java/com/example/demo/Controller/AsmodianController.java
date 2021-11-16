@@ -71,7 +71,7 @@ public class AsmodianController {
     }
     @GetMapping("/UserList")
     public String UserList(Model model) {
-        model.addAttribute("users", dataBaseController.index());
+        model.addAttribute("users", dataBaseController.findAllPatientOfUser(currentUser.getName()));
         return "/UserList";
     }
     @GetMapping ("/SetDisease")

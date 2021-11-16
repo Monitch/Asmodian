@@ -104,6 +104,32 @@ public class DataBaseController {
         }
         return users;
     }
+    public User findAllPatientOfUser(String name){
+        User user = null;
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement("SELECT * FROM userbd WHERE doctor =? ");
+
+            preparedStatement.setString(1, name);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+
+            user = new User();
+
+            user.setId(resultSet.getInt("id"));
+            user.setName(resultSet.getString("name"));
+            user.setEmail(resultSet.getString("email"));
+            user.setNumber(resultSet.getString("number"));
+            user.setPassword(resultSet.getString("password"));
+            user.setDoctor(resultSet.getString("doctor"));
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return user;
+    }
     public User findById(int id){
         User user = null;
         try {
