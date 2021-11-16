@@ -131,6 +131,7 @@ public class AsmodianController {
             currentUser.setEmail(email);
             currentUser.setNumber(number);
             currentUser.setDoctor("doctor");
+            dataBaseController.registrationDoctor(name,email,number,password);
         return "redirect:/MainPage";}
         else {
             redirectAttributes.addFlashAttribute(
