@@ -28,6 +28,59 @@ public class DataBaseController {
             throwables.printStackTrace();
         }
     }
+    public void registrationDoctor(String name,String email,String number,String password){
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "INSERT INTO userbd (name, email, number, password, doctor) VALUES (?,?,?,?,?)");
+            preparedStatement.setString(1,name);
+            preparedStatement.setString(2,email);
+            preparedStatement.setString(3,number);
+            preparedStatement.setString(4,password);
+            preparedStatement.setString(5,"doctor");
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public void registration(User user){
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "INSERT INTO userbd (name, email, number, password, doctor) VALUES (?,?,?,?,?)");
+            preparedStatement.setString(1,user.getName());
+            preparedStatement.setString(2,user.getEmail());
+            preparedStatement.setString(3,user.getNumber());
+            preparedStatement.setString(4,user.getPassword());
+            preparedStatement.setString(5,user.getDoctor());
+
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public CurrentUser logIn(String email, String password){
+        CurrentUser currentUser = new CurrentUser();
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "select * from userbd where email = ? and password = ?");
+            preparedStatement.setString(1,email);
+            preparedStatement.setString(2,password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                currentUser.setEmail(resultSet.getString("email"));
+                currentUser.setDoctor(resultSet.getString("doctor"));
+                currentUser.setName(resultSet.getString("name"));
+                currentUser.setNumber(resultSet.getString("number"));
+            }
+            return currentUser;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return currentUser;
+    }
     public List<User> index(){
         List<User> users = new ArrayList<User>();
 
@@ -50,6 +103,99 @@ public class DataBaseController {
             throwables.printStackTrace();
         }
         return users;
+    }
+    public User findById(int id){
+        User user = null;
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement("SELECT * FROM userbd WHERE id=?");
+
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+
+            user = new User();
+
+            user.setId(resultSet.getInt("id"));
+            user.setName(resultSet.getString("name"));
+            user.setEmail(resultSet.getString("email"));
+            user.setNumber(resultSet.getString("number"));
+            user.setPassword(resultSet.getString("password"));
+            user.setDoctor(resultSet.getString("doctor"));
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return user;
+    }
+    public List<User> findByName(String name){
+        List<User> users = new ArrayList<User>();
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement("SELECT * FROM userbd WHERE LOWER(name) like ?");
+
+            preparedStatement.setString(1,"%" + name.toLowerCase() + "%");
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                User userr = new User();
+                userr.setId(resultSet.getInt("id"));
+                userr.setName(resultSet.getString("name"));
+                userr.setEmail(resultSet.getString("email"));
+                userr.setNumber(resultSet.getString("number"));
+                userr.setPassword(resultSet.getString("password"));
+                userr.setDoctor(resultSet.getString("doctor"));
+                users.add(userr);
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return users;
+    }
+
+    public ArrayList<ListForDropDown> getAllDoctor(){
+        ArrayList<ListForDropDown> doctorList = new ArrayList<>() ;
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "select * from userbd where doctor='doctor'");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                ListForDropDown listForDropDown = new ListForDropDown();
+                listForDropDown.setName(resultSet.getString("name"));
+                listForDropDown.setNumber(resultSet.getString("number"));
+                doctorList.add(listForDropDown);
+            }
+            return doctorList;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return doctorList;
+    }
+
+    public ArrayList<ListForDropDown> getAllPatient(String doctor){
+        ArrayList<ListForDropDown> doctorList = new ArrayList<>() ;
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "select * from userbd where doctor<>'doctor' AND doctor=?");
+            preparedStatement.setString(1,doctor);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                ListForDropDown list = new ListForDropDown();
+                list.setName(resultSet.getString("name"));
+                list.setNumber(resultSet.getString("number"));
+                doctorList.add(list);
+            }
+            return doctorList;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return doctorList;
     }
     public List<Meeting> getAllMeetingOfCurrentUser(String email){
         List<Meeting> meeting = new ArrayList<Meeting>();
@@ -113,154 +259,6 @@ public class DataBaseController {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-    }
-
-    public User findById(int id){
-        User user = null;
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement("SELECT * FROM userbd WHERE id=?");
-
-            preparedStatement.setInt(1, id);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            resultSet.next();
-
-            user = new User();
-
-            user.setId(resultSet.getInt("id"));
-            user.setName(resultSet.getString("name"));
-            user.setEmail(resultSet.getString("email"));
-            user.setNumber(resultSet.getString("number"));
-            user.setPassword(resultSet.getString("password"));
-            user.setDoctor(resultSet.getString("doctor"));
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return user;
-    }
-    public List<User> findByName(String name){
-        List<User> users = new ArrayList<User>();
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement("SELECT * FROM userbd WHERE LOWER(name) like ?");
-
-            preparedStatement.setString(1,"%" + name.toLowerCase() + "%");
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()){
-                User userr = new User();
-                userr.setId(resultSet.getInt("id"));
-                userr.setName(resultSet.getString("name"));
-                userr.setEmail(resultSet.getString("email"));
-                userr.setNumber(resultSet.getString("number"));
-                userr.setPassword(resultSet.getString("password"));
-                userr.setDoctor(resultSet.getString("doctor"));
-                users.add(userr);
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return users;
-    }
-
-    public void registration(User user){
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement(
-                            "INSERT INTO userbd (name, email, number, password, doctor) VALUES (?,?,?,?,?)");
-            preparedStatement.setString(1,user.getName());
-            preparedStatement.setString(2,user.getEmail());
-            preparedStatement.setString(3,user.getNumber());
-            preparedStatement.setString(4,user.getPassword());
-            preparedStatement.setString(5,user.getDoctor());
-
-
-            preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-    public CurrentUser logIn(String email, String password){
-        CurrentUser currentUser = new CurrentUser();
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement(
-                            "select * from userbd where email = ? and password = ?");
-            preparedStatement.setString(1,email);
-            preparedStatement.setString(2,password);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) {
-                currentUser.setEmail(resultSet.getString("email"));
-                currentUser.setDoctor(resultSet.getString("doctor"));
-                currentUser.setName(resultSet.getString("name"));
-                currentUser.setNumber(resultSet.getString("number"));
-            }
-            return currentUser;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return currentUser;
-    }
-    public ArrayList<ListForDropDown> getAllDoctor(){
-        ArrayList<ListForDropDown> doctorList = new ArrayList<>() ;
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement(
-                            "select * from userbd where doctor='doctor'");
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) {
-                ListForDropDown listForDropDown = new ListForDropDown();
-                listForDropDown.setName(resultSet.getString("name"));
-                listForDropDown.setNumber(resultSet.getString("number"));
-                doctorList.add(listForDropDown);
-            }
-            return doctorList;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return doctorList;
-    }
-
-    public ArrayList<ListForDropDown> getAllPatient(String doctor){
-        ArrayList<ListForDropDown> doctorList = new ArrayList<>() ;
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement(
-                            "select * from userbd where doctor<>'doctor' AND doctor=?");
-            preparedStatement.setString(1,doctor);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) {
-                ListForDropDown list = new ListForDropDown();
-                list.setName(resultSet.getString("name"));
-                list.setNumber(resultSet.getString("number"));
-                doctorList.add(list);
-            }
-            return doctorList;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return doctorList;
-    }
-    public String getEmailFor(String role, String email){
-        String resEmail = null;
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement(
-                            "select * from userbd where doctor<>'doctor' AND doctor=?");
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) {
-                resEmail = (resultSet.getString("name"));
-            }
-            return resEmail;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return resEmail;
     }
 
     public void UpdateMeeting(String value,int id){

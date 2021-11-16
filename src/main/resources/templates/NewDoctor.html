@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p style="color: red" th:text = "${redirect}"></p>
+<div class="aaa">
+  <form method="Post">
+    <label for="key"> Введіть ключове слово</label>
+    <input type="text" id="key" name="key">
+    <br>
+    <label for="name">Введіть ім'я: </label>
+    <input type="text" name="name" id="name"/>
+    <br/>
+    <label for="email">Введіть емайл: </label>
+    <input type="text" name ="email" id="email"/>
+    <br/>
+    <label for="number">Введіть номер телефону: </label>
+    <input type="text" name="number" id="number"/>
+    <br/>
+    <label for="password">Введіть пароль: </label>
+    <input type="password" name="password" id="password"/>
+    <br/>
+    <input type="submit" value="Ввійти"/>
+  </form>
+  </form>
+</div>
+<a href="/SignIn">Вже маєш акаунт?</a>
+</body>
+</html>

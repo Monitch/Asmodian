@@ -28,6 +28,10 @@ public class AsmodianController {
         return "/SignIn";
     }
 
+    @GetMapping("/NewDoctor")
+    public String newDoctor(){
+        return "NewDoctor";
+    }
     @GetMapping("/SignUp")
     public String SignUp(Model model) {
         ArrayList<ListForDropDown> doctorList;
@@ -49,6 +53,16 @@ public class AsmodianController {
                     "redirect", "Введені данні не правильні");
             return "redirect:/SignIn";
         }
+    }
+    @GetMapping("/AddInformation")
+    public String addInformation(Model model){
+        model.addAttribute("test","future information");
+        return "/AddInformation";
+    }
+    @GetMapping("/AboutDoctor")
+    public String DoctorInformation(Model model){
+        model.addAttribute("test","future doctor information");
+        return "/AboutDoctor";
     }
     @GetMapping("MyDisease")
     public String MyDisease(Model model){
@@ -102,6 +116,27 @@ public class AsmodianController {
         currentUser.setNumber(user.getNumber());
         currentUser.setDoctor(user.getDoctor());
         return "redirect:/MainPage";
+    }
+    @PostMapping("/NewDoctor")
+    public String setNewDoctor(@RequestParam("key") String key ,
+                               @RequestParam("name") String name,
+                               @RequestParam("email") String email,
+                               @RequestParam("number") String number,
+                               @RequestParam("password") String password,
+                               RedirectAttributes redirectAttributes){
+        System.out.println(key+name+number+password);
+        if(key.equals("Winter")) {
+
+            currentUser.setName(name);
+            currentUser.setEmail(email);
+            currentUser.setNumber(number);
+            currentUser.setDoctor("doctor");
+        return "redirect:/MainPage";}
+        else {
+            redirectAttributes.addFlashAttribute(
+                    "redirect", "Введений ключ не правильний");
+            return "redirect:/NewDoctor";
+        }
     }
 
     @PostMapping("/SignIn")

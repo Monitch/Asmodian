@@ -10,13 +10,19 @@
     <div class="test">
     <p> Акаунт лікаря</p>
     </div>
+    <a href="/AddInformation">Додати інформацію про себе</a>
+    <br/>
     <a href="/SetDisease">Поставити діагноз</a>
     <br/>
     <a href="/UserList">Список користувачів</a>
     <br/>
 </div>
 <div th:if = "${currentUser.getDoctor() != 'doctor'}">
-    <p> Акаунт пацієнта</p>
+    <div class="test">
+        <p> Акаунт пацієнта</p>
+    </div>
+    <a href="/AboutDoctor">Інформація про лікаря</a>
+    <br>
     <a href="/MyDisease">Мій діагноз</a>
 </div>
 <a href="/MeetingPage">Переглянути зустрічі</a>

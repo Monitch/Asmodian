@@ -15,10 +15,10 @@
     <div th:each="meeting : ${meetingList}">
         <div th:if="${meeting.getApproved()!='false'}">
         <p th:text="${meeting.getName() + ', ' + meeting.getDoctor() + ', ' + meeting.getDate() + ', ' + meeting.getApproved()}">Age</p>
-        <form method="Post">
+            <form method="Post">
             <input type="hidden" name="id" th:value="${meeting.getId()}">
-            <button type="submit" name="action" value="save">Підтвердити</button>
-            <button type="submit" name="action" value="cancel">Скасувати</button>
+            <button type="submit" name="action" onClick='return confirmSubmit()' value="save">Підтвердити</button>
+            <button type="submit" name="action" onClick='return cancelSubmit()' value="cancel">Скасувати</button>
         </form>
         </div>
     </div>
@@ -26,3 +26,21 @@
 <a href="/MainPage">Назад</a>
 </body>
 </html>
+<script>
+    function confirmSubmit()
+    {
+        var agree=confirm("Затвердити зустріч?");
+        if (agree)
+            return true ;
+        else
+            return false ;
+    }
+    function cancelSubmit()
+    {
+        var agree=confirm("Відмовити в зустрічі?");
+        if (agree)
+            return true ;
+        else
+            return false ;
+    }
+</script>
