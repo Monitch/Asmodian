@@ -1,10 +1,7 @@
 package com.example.demo.DBController;
 
 import com.example.demo.CurrentUser.CurrentUser;
-import com.example.demo.Model.Disease;
-import com.example.demo.Model.ListForDropDown;
-import com.example.demo.Model.Meeting;
-import com.example.demo.Model.User;
+import com.example.demo.Model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -287,7 +284,7 @@ public class DataBaseController {
         }
     }
 
-    public void UpdateMeeting(String value,int id){
+    public void updateMeeting(String value, int id){
         try {
             PreparedStatement preparedStatement =
                     connection.prepareStatement(
@@ -349,13 +346,120 @@ public class DataBaseController {
                 disease.setDoctor(resultSet.getString("doctor"));
                 disease.setDisease(resultSet.getString("disease"));
                 disease.setMedicine(resultSet.getString("medicine"));
-
             }
             return disease;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return disease;
+    }
+    public String checkDisease(String name, String doctor){
+        String res = null;
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "select * from disease where name = ? and doctor = ?");
+            preparedStatement.setString(1,name);
+            preparedStatement.setString(2,doctor);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                res=resultSet.getString("name");
+            }
+            return res;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return res;
+    }
+    public void updateDisease(Disease disease){
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "update disease set disease = ?, medicine = ? WHERE name = ? and doctor = ?;");
+            preparedStatement.setString(1,disease.getDisease());
+            preparedStatement.setString(2,disease.getMedicine());
+            preparedStatement.setString(3,disease.getName());
+            preparedStatement.setString(4,disease.getDoctor());
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public String checkInfoAbout(String name){
+        String res = null;
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "select * from infodb where name = ?");
+            preparedStatement.setString(1,name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                res=resultSet.getString("name");
+            }
+            return res;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return res;
+    }
 
+    public void setInfo(String name, String email, String number,String education, String experience,String awards, String aboutme){
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "INSERT INTO infodb (name, email, number, education, experience, awards, aboutme) values (?,?,?,?,?,?,?) ;");
+            preparedStatement.setString(1,name);
+            preparedStatement.setString(2,email);
+            preparedStatement.setString(3,number);
+            preparedStatement.setString(4,education);
+            preparedStatement.setString(5,experience);
+            preparedStatement.setString(6,awards);
+            preparedStatement.setString(7,aboutme);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public void updateInfo(String name,String education, String experience,String awards, String aboutme){
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(
+                            "update infodb set education = ?, experience = ?, awards = ?, aboutme = ? WHERE name = ?;");
+            preparedStatement.setString(1,education);
+            preparedStatement.setString(2,experience);
+            preparedStatement.setString(3,awards);
+            preparedStatement.setString(4,aboutme);
+            preparedStatement.setString(5,name);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public List<Info> getInfoAboutDoctor(String name){
+        List<Info> infoList = new ArrayList<Info>();
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement("SELECT * FROM infoDB WHERE name=? ORDER BY id");
+
+            preparedStatement.setString(1,name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                Info info = new Info();
+                info.setId(resultSet.getInt("id"));
+                info.setName(resultSet.getString("name"));
+                info.setEmail(resultSet.getString("email"));
+                info.setNumber(resultSet.getString("number"));
+                info.setEducation(resultSet.getString("education"));
+                info.setExperience(resultSet.getString("experience"));
+                info.setAwards(resultSet.getString("awards"));
+                info.setAboutme(resultSet.getString("aboutme"));
+                infoList.add(info);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return infoList;
     }
 }

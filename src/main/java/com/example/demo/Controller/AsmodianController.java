@@ -62,6 +62,12 @@ public class AsmodianController {
     @GetMapping("/AboutDoctor")
     public String DoctorInformation(Model model){
         model.addAttribute("test","future doctor information");
+        if (currentUser.getDoctor().equals("doctor")){
+            model.addAttribute("doctorInfo", dataBaseController.getInfoAboutDoctor(currentUser.getName()));
+        }
+        if (!currentUser.getDoctor().equals("doctor")){
+            model.addAttribute("doctorInfo", dataBaseController.getInfoAboutDoctor(currentUser.getDoctor()));
+        }
         return "/AboutDoctor";
     }
     @GetMapping("MyDisease")
@@ -146,6 +152,25 @@ public class AsmodianController {
         currentUser = dataBaseController.logIn(email, password);
         return "redirect:/MainPage";
     }
+    @PostMapping("AddInformation")
+    public String setInformation(@RequestParam("education") String education,
+                                 @RequestParam("experience") String experience,
+                                 @RequestParam("awards") String awards,
+                                 @RequestParam("aboutme")String aboutme){
+        String check = dataBaseController.checkInfoAbout(currentUser.getName());
+        if(check == null) {
+            dataBaseController.setInfo(currentUser.getName(),
+                    currentUser.getEmail(),
+                    currentUser.getNumber(),
+                    education, experience,
+                    awards,
+                    aboutme);
+        }
+        else {
+            dataBaseController.updateInfo(currentUser.getName(), education, experience, awards, aboutme);
+        }
+        return "redirect:/MainPage";
+    }
 
     @PostMapping("UserList")
     public String UserListPost(@RequestParam("name") String name,
@@ -158,11 +183,11 @@ public class AsmodianController {
     public String approveMeeting(@RequestParam(value="action", required=true) String action,
                                  @RequestParam (value = "id",required = true) int id){
         if (action.equals("save")) {
-            dataBaseController.UpdateMeeting("true",id);
+            dataBaseController.updateMeeting("true",id);
         }
 
         if (action.equals("cancel")) {
-            dataBaseController.UpdateMeeting("false",id);
+            dataBaseController.updateMeeting("false",id);
         }
         return "redirect:/MeetingPage";
     }
@@ -185,7 +210,13 @@ public class AsmodianController {
         disease1.setDoctor(currentUser.getName());
         disease1.setDisease(disease);
         disease1.setMedicine(medicine);
-        dataBaseController.setDisease(disease1);
+        String check = dataBaseController.checkDisease(disease1.getName(),currentUser.getName());
+        if(check == null) {
+            dataBaseController.setDisease(disease1);
+        }
+        else {
+            dataBaseController.updateDisease(disease1);
+        }
         return "redirect:/MainPage";
     }
 }

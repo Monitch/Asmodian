@@ -5,7 +5,9 @@
     <title>Мій лікарь</title>
 </head>
 <body>
-<p th:text="${test}"></p>
+<div th:each="info : ${doctorInfo}">
+    <p th:text="${info.getName() + ', ' + info.getEducation + ', ' + info.getExperience() + ', ' + info.getAboutme()}">Age</p>
+</div>
 <a href="/MainPage">Назад</a>
 </body>
 </html>
