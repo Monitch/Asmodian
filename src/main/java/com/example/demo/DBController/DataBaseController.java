@@ -101,8 +101,8 @@ public class DataBaseController {
         }
         return users;
     }
-    public User findAllPatientOfUser(String name){
-        User user = null;
+    public List<User> findAllPatientOfUser(String name){
+        ArrayList<User> userList = new ArrayList<>();
         try {
             PreparedStatement preparedStatement =
                     connection.prepareStatement("SELECT * FROM userbd WHERE doctor =? ");
@@ -110,22 +110,21 @@ public class DataBaseController {
             preparedStatement.setString(1, name);
 
             ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setName(resultSet.getString("name"));
+                user.setEmail(resultSet.getString("email"));
+                user.setNumber(resultSet.getString("number"));
+                user.setPassword(resultSet.getString("password"));
+                user.setDoctor(resultSet.getString("doctor"));
+                userList.add(user);
 
-            resultSet.next();
-
-            user = new User();
-
-            user.setId(resultSet.getInt("id"));
-            user.setName(resultSet.getString("name"));
-            user.setEmail(resultSet.getString("email"));
-            user.setNumber(resultSet.getString("number"));
-            user.setPassword(resultSet.getString("password"));
-            user.setDoctor(resultSet.getString("doctor"));
-
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return user;
+        return userList;
     }
     public User findById(int id){
         User user = null;
@@ -205,7 +204,7 @@ public class DataBaseController {
         try {
             PreparedStatement preparedStatement =
                     connection.prepareStatement(
-                            "select * from userbd where doctor<>'doctor' AND doctor=?");
+                            "select * from userbd where doctor=?");
             preparedStatement.setString(1,doctor);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
