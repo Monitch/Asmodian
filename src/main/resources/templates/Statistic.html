@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>Статистика</title>
 </head>
 <body>
-<a href="/MainPage">На головну сторінку</a>
-<br/>
-<script th:inline="javascript">
-        var message = [[${PopularIll}]];
-        alert(message)
-</script>
+<div style="display: flex">
+<div style="height: 400px; width: 600px;">
+    <canvas id="myChart" ></canvas>
+</div>
+<div>
 <p th:text="${'Загальна кількість пацієнтів: ' + cPatient}"></p>
 <p th:text="${'Кількість пацінтів які знаходяться на лікуванні : ' + cSick}"></p>
 <p th:text="${'Відсоток хворих складає : ' + pSick+'%'}"></p>
@@ -24,6 +24,52 @@
 <p th:text="${'Кількість хворих на COVid 19 складає: ' + cCovid  }"></p>
 <p th:text="${'Що складає : ' + pCovid + ' відстоків хворих' }"></p>
 </div>
-
+</div>
+</div>
+<a href="/MainPage">На головну сторінку</a>
+<br/>
 </body>
+<script th:inline="javascript">
+    let ctx = document.getElementById('myChart').getContext('2d');
+    let pSick = [[${cSick}]];
+    let pCovid = [[${cCovid}]];
+    let myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Кількість хворих','Хворих на COVid-19','Не срет'],
+            datasets: [{
+                label: 'Кількість хворих',
+                data: [pSick,pCovid,1,0],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options:
+            {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: false
+                    }
+                }
+            }
+    });
+</script>
+
 </html>
