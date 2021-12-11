@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Статистика</title>
+</head>
+<body>
+<a href="/MainPage">На головну сторінку</a>
+<br/>
+<script th:inline="javascript">
+        var message = [[${PopularIll}]];
+        alert(message)
+</script>
+<p th:text="${'Загальна кількість пацієнтів: ' + cPatient}"></p>
+<p th:text="${'Кількість пацінтів які знаходяться на лікуванні : ' + cSick}"></p>
+<p th:text="${'Відсоток хворих складає : ' + pSick+'%'}"></p>
+<div th:if = "${PopularIll == 'COVid 19'}">
+    <p th:text="${'Найпоширеніша хвороба на даний момент : ' + PopularIll }"></p>
+    <p th:text="${'Що складає : ' + pPopular + ' відстоків хворих' }"></p>
+</div>
+<div th:if = "${PopularIll != 'COVid 19'}">
+<p th:text="${'Найпоширеніша хвороба на даний момент : ' + PopularIll }"></p>
+<p th:text="${'Що складає : ' + pPopular + ' відстоків хворих' }"></p>
+<p th:text="${'Кількість хворих на COVid 19 складає: ' + cCovid  }"></p>
+<p th:text="${'Що складає : ' + pCovid + ' відстоків хворих' }"></p>
+</div>
+
+</body>
+</html>

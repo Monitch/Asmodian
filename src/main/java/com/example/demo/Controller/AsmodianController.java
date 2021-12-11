@@ -11,7 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import static java.lang.Integer.parseInt;
 
 @Controller
 public class AsmodianController {
@@ -53,6 +56,28 @@ public class AsmodianController {
                     "redirect", "Введені данні не правильні");
             return "redirect:/SignIn";
         }
+    }
+    @GetMapping("/Statistic")
+    public String Statistic(Model model){
+        DecimalFormat f = new DecimalFormat("##.00");
+        String allCount = dataBaseController.getCountOfPatientOfCurrentUser(currentUser.getName());
+        String sickCount = dataBaseController.getCountOfSick(currentUser.getName());
+        String popularIllCount = dataBaseController.getMostPopularIllCount(currentUser.getName());
+        String covidCount = dataBaseController.getCountOfSickOfCOVid(currentUser.getName());
+        double percentOfSick = (Double.parseDouble(sickCount)/Double.parseDouble(allCount))*100;
+        double percentOfPopular = (Double.parseDouble(popularIllCount)/Double.parseDouble(sickCount))*100;
+        double percentOfCovid = (Double.parseDouble(covidCount)/Double.parseDouble(sickCount))*100;
+
+        model.addAttribute("cPatient",allCount);
+        model.addAttribute("cSick",sickCount);
+        model.addAttribute("PopularIll",dataBaseController.getMostPopularIll(currentUser.getName()));
+        model.addAttribute("cCovid",covidCount);
+
+        model.addAttribute("pSick",f.format(percentOfSick));
+        model.addAttribute("pPopular",f.format(percentOfPopular));
+        model.addAttribute("pCovid",f.format(percentOfCovid));
+
+        return "/Statistic";
     }
     @GetMapping("/AddInformation")
     public String addInformation(Model model){
@@ -132,13 +157,13 @@ public class AsmodianController {
                                RedirectAttributes redirectAttributes){
         System.out.println(key+name+number+password);
         if(key.equals("Winter")) {
-
             currentUser.setName(name);
             currentUser.setEmail(email);
             currentUser.setNumber(number);
             currentUser.setDoctor("doctor");
             dataBaseController.registrationDoctor(name,email,number,password);
-        return "redirect:/MainPage";}
+        return "redirect:/MainPage";
+        }
         else {
             redirectAttributes.addFlashAttribute(
                     "redirect", "Введений ключ не правильний");
