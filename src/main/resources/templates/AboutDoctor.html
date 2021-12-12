@@ -5,8 +5,14 @@
     <title>Мій лікарь</title>
 </head>
 <body>
+<div th:if = "${check == 'false'}">
 <div th:each="info : ${doctorInfo}">
-    <p th:text="${info.getName() + ', ' + info.getEducation + ', ' + info.getExperience() + ', ' + info.getAboutme()}">Age</p>
+    <p th:text="${info.getName() + ', ' + info.getEducation() + ', ' + info.getExperience() + ', ' + info.getAboutme()}">Age</p>
+</div>
+</div>
+<div th:if = "${check == 'true'}">
+        <p>Інформація відсутня</p>
+</div>
 </div>
 <a href="/MainPage">Назад</a>
 </body>

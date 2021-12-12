@@ -1,7 +1,21 @@
+body{
+    height: 100vh;
+    width: 100vw;
+    background:url("../Image/img.png") no-repeat;
+    margin: 0;
+    background-size: cover;
+    position: relative;
+    font-family: Arial, serif ;
+    color: #2d2d2d;
+}
+.headLiner{
+text-align: center;
+}
 .SignInForm {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
     width: 300px;
     height: auto;
     padding: 30px;
@@ -12,20 +26,21 @@
 }
 .inputForm {
     margin: 15px;
+    display:flex;
+    flex-direction: column;
     color: #48606c;
 }
 .inputField {
-    margin-top: 5%;
-    border: 2px solid #479cc8;
-    border-radius: 5px;
+    flex:1;
+    border: 2px solid #d7dfe8;
 }
 .labelForm{
-    width: 150px;
+    flex:1;
 }
 .btnMother{
     display:flex;
     width:100%;
-    justify-content:flex-end;
+    justify-content:center;
     margin-top:40px;
 }
 .btnSubmit {
@@ -36,11 +51,9 @@
     color: white;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     width: fit-content;
     cursor: pointer;
     border-radius: 3px;
-    margin-left: auto;
     font-size: 1.0625rem;
     font-weight: normal;
     padding: 0 1.5rem;

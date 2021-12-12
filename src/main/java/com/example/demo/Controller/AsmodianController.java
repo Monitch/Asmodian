@@ -86,12 +86,16 @@ public class AsmodianController {
     }
     @GetMapping("/AboutDoctor")
     public String DoctorInformation(Model model){
-        model.addAttribute("test","future doctor information");
+        String check="";
         if (currentUser.getDoctor().equals("doctor")){
             model.addAttribute("doctorInfo", dataBaseController.getInfoAboutDoctor(currentUser.getName()));
+            check= String.valueOf(dataBaseController.getInfoAboutDoctor(currentUser.getName()).isEmpty());
+            model.addAttribute("check",check);
         }
         if (!currentUser.getDoctor().equals("doctor")){
             model.addAttribute("doctorInfo", dataBaseController.getInfoAboutDoctor(currentUser.getDoctor()));
+            check= String.valueOf(dataBaseController.getInfoAboutDoctor(currentUser.getDoctor()).isEmpty());
+            model.addAttribute("check",check);
         }
         return "/AboutDoctor";
     }
