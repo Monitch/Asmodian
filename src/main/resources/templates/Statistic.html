@@ -7,7 +7,7 @@
 </head>
 <body>
 <div style="display: flex">
-<div style="height: 400px; width: 600px;">
+<div style="height: 400px; width: 700px;">
     <canvas id="myChart" ></canvas>
 </div>
 <div>
@@ -33,13 +33,14 @@
     let ctx = document.getElementById('myChart').getContext('2d');
     let pSick = [[${cSick}]];
     let pCovid = [[${cCovid}]];
+    let pCount = [[${cPatient}]];
     let myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Кількість хворих','Хворих на COVid-19','Не срет'],
+            labels: ['Кількість пацієнтів','Хворих','Хворих на COVid-19','Хворих на інші хвороби'],
             datasets: [{
                 label: 'Кількість хворих',
-                data: [pSick,pCovid,1,0],
+                data: [pCount,pSick,pCovid,pSick-pCovid,0],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',

@@ -2,23 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/css/SignIn.css}" rel="stylesheet" />
     <title>Ввійти в акаунт</title>
 </head>
 <body>
 <div>
     <p style="color: red" th:text = "${redirect}"></p>
 </div>
-<div class="aaa">
+<div class="SignInForm">
     <form method="Post">
+        <div class="inputForm">
         <label for="email"> Логін</label>
-        <br>
         <input type="text" id="email" name="email" placeholder="Введдіть логін">
-        <br>
+        </div>
+        <div class="inputForm">
         <label for="password"> Пароль</label>
-        <br>
         <input type="password" id="password" name="password" placeholder="Веддіть пароль">
-        <br>
+        </div>
+        <div class="btnMother">
         <input type="submit" value="Ввійти"/>
+        </div>
     </form>
 </div>
 <a href="/SignUp">Не зареєстрований?</a>
