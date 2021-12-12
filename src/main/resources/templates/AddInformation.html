@@ -3,28 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Додати інформацію про себе</title>
+    <link th:href="@{/css/AddInfromation.css}" rel="stylesheet" />
+    <link th:href="@{/css/SignIn.css}" rel="stylesheet" />
 </head>
 <body>
-<p th:text="${test}"></p>
+<div class="SignInForm">
 <form method="Post">
+    <div class="inputForm">
     <label for="education">Освіта</label>
-    <br>
-    <input type="text" id="education" name="education" placeholder="">
-    <br>
+    <input class="inputField" type="text" id="education" name="education" placeholder="">
+    </div>
+    <div class="inputForm">
     <label for="experience">Досвід роботи</label>
-    <br>
-    <input type="text" id="experience" name="experience" placeholder="">
-    <br>
+    <input class="inputField" type="text" id="experience" name="experience" placeholder="">
+    </div>
+    <div class="inputForm">
     <label for="awards">Нагороди\Відзнаки</label>
-    <br>
-    <input type="text" id="awards" name="awards" placeholder="">
-    <br>
+    <input class="inputField" type="text" id="awards" name="awards" placeholder="">
+    </div>
+    <div class="inputForm">
     <label for="aboutme">Інформація про себе</label>
-    <br>
-    <input type="text" id="aboutme" name="aboutme" placeholder="">
-    <br>
-    <input type="submit" value="Відправити"/>
+    <input class="inputField" type="text" id="aboutme" name="aboutme" placeholder="">
+    </div>
+    <div class="btnMother">
+        <input class="btnSubmit" type="submit" value="Додати"/>
+    </div>
 </form>
 <a href="/MainPage">Назад</a>
+</div>
 </body>
 </html>

@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Головна сторінка</title>
-    <link th:href="@{/css/test.css}" rel="stylesheet" />
+    <link th:href="@{/css/MainPAge.css}" rel="stylesheet" />
 </head>
 <body>
+<div class="MainPage">
 <div th:if = "${currentUser.getDoctor() == 'doctor'}">
     <div class="test">
     <p> Акаунт лікаря</p>
@@ -35,5 +36,6 @@
 <p th:text="${currentUser.getEmail()}"></p>
 <p th:text="${currentUser.getDoctor()}"></p>
 <a href="/SignIn">Вийти</a>
+</div>
 </body>
 </html>

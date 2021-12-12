@@ -1,8 +1,8 @@
 .SignInForm {
-    margin-top: 30px;
-    margin-left: 40px;
-    margin-bottom: 40px;
-    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    width: 300px;
     height: auto;
     padding: 30px;
     background-color: #ffffff;
@@ -13,4 +13,56 @@
 .inputForm {
     margin: 15px;
     color: #48606c;
+}
+.inputField {
+    margin-top: 5%;
+    border: 2px solid #479cc8;
+    border-radius: 5px;
+}
+.labelForm{
+    width: 150px;
+}
+.btnMother{
+    display:flex;
+    width:100%;
+    justify-content:flex-end;
+    margin-top:40px;
+}
+.btnSubmit {
+    margin-bottom : 15px;
+    background-color: #479cc8;
+    background-position: right center;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: fit-content;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-left: auto;
+    font-size: 1.0625rem;
+    font-weight: normal;
+    padding: 0 1.5rem;
+    height: 2.1875rem;
+}
+.btnSubmit:hover {
+    color: #fff;
+    border-color: #545b62;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
+    -webkit-box-shadow: inset 0 -3px 0 0 rgb(255 255 255 / 20%);
+    box-shadow: inset 0 -3px 0 0 rgb(255 255 255 / 20%);
+}
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    font-size: 1.0625rem;
+    font-weight: normal;
+    text-align: center;
+}
+p{
+    text-decoration: none;
+    font-size: 1.0625rem;
+    font-weight: normal;
+    text-align: center;
+    color: red;
 }

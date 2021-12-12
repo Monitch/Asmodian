@@ -2,36 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/css/SignUp.css}" rel="stylesheet" />
+    <link th:href="@{/css/SignIn.css}" rel="stylesheet" />
     <title>Реєстрація</title>
 </head>
 <body>
-<div class="aaa">
+<div class="SignUpForm">
     <form th:method="POST" th:action="@{SignUp}" th:object="${users}">
+        <div class="inputForm">
         <label for="name">Введіть ім'я: </label>
-        <input type="text" th:field="*{name}" id="name"/>
-        <br/>
+        <input class="inputField"  type="text" th:field="*{name}" id="name"/>
+        </div>
+        <div class="inputForm">
         <label for="email">Введіть емайл: </label>
-        <input type="text" th:field="*{email}" id="email"/>
-        <br/>
+        <input class="inputField" type="text" th:field="*{email}" id="email"/>
+        </div>
+        <div class="inputForm">
         <label for="number">Введіть номер телефону: </label>
-        <input type="text" th:field="*{number}" id="number"/>
-        <br/>
+        <input class="inputField" type="text" th:field="*{number}" id="number"/>
+        </div>
+        <div class="inputForm">
         <label for="password">Введіть пароль: </label>
-        <input type="password" th:field="*{password}" id="password"/>
-        <br/>
+        <input class="inputField" type="password" th:field="*{password}" id="password"/>
+        </div>
+        <div class="inputForm">
         <label for="password">Виберіть вашого лікаря: </label>
-        <select th:field="*{doctor}">
+        <select class="inputField" th:field="*{doctor}">
             <option value=""> ------ </option>
             <option th:each="ListForDropDown : ${doctorList}"
                     th:value="${ListForDropDown.getName}"
                     th:text="${ListForDropDown.getName() +', '+ListForDropDown.getNumber()}"></option>
         </select>
-        <br/>
-        <input type="submit" value="Зареєструватися"/>
+        </div>
+        <div class="btnMother">
+        <input class="btnSubmit" type="submit" value="Зареєструватися"/>
+        </div>
     </form>
+    <div>
+        <a href="/SignIn">Вже маєш акаунт?</a>
+    </div>
+    <div>
+    <a href="/NewDoctor">Ви лікар?</a>
+    </div>
 </div>
-<a href="/SignIn">Вже маєш акаунт?</a>
-<br>
-<a href="/NewDoctor">Ви лікар?</a>
 </body>
 </html>

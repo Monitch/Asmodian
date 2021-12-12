@@ -3,29 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:href="@{/css/AddInfromation.css}" rel="stylesheet" />
+    <link th:href="@{/css/SignIn.css}" rel="stylesheet" />
 </head>
 <body>
-<p th:text="${test}"></p>
+<div class="SignInForm">
 <form method="Post">
+    <div class="inputForm">
     <label for="namePatient"> Виберіть пацієнта </label>
-    <select id="namePatient" name="numberPatient">
+    <select class="inputField" id="namePatient" name="numberPatient">
         <option value=""> -- </option>
         <option th:each="ListForDropDown : ${patientList}"
                 th:value="${ListForDropDown.getNumber}"
                 th:text="${ListForDropDown.getName() +', '+ListForDropDown.getNumber()}"></option>
     </select>
-    <br/>
+    </div>
+    <div class="inputForm">
     <label for="disease">Діагноз</label>
-    <br>
-    <input type="text" id="disease" name="disease" placeholder="Введдіть діагноз">
-    <br>
+    <input class="inputField" type="text" id="disease" name="disease" placeholder="Введдіть діагноз">
+    </div>
+    <div class="inputForm">
     <label for="medicine">Призначити лікування</label>
-    <br>
-    <input type="text" id="medicine" name="medicine" placeholder="Введдіть лікування">
-    <br>
-    <br>
-    <input type="submit" value="Поставити"/>
+    <input class="inputField" type="text" id="medicine" name="medicine" placeholder="Введдіть лікування">
+    </div>
+    <div class="btnMother">
+        <input  class="btnSubmit" type="submit" value="Поставити діагноз"/>
+    </div>
 </form>
 <a href="/MainPage">Назад</a>
+</div>
 </body>
 </html>
