@@ -1,0 +1,40 @@
+body {
+    background:url("../Image/img.png") no-repeat;
+    background-size: cover;
+}
+
+body p {
+    padding: 0;
+    margin: 0;
+}
+
+.button {
+    background-color: #59cfc2;
+    background-position: right center;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    width: fit-content;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 1.0625rem;
+    font-weight: normal;
+    padding: 0 1.5rem;
+    height: 2.1875rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button:hover {
+    color: #fff;
+    border-color: #179285;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
+    -webkit-box-shadow: inset 0 -3px 0 0 rgb(255 255 255 / 20%);
+    box-shadow: inset 0 -3px 0 0 rgb(255 255 255 / 20%);
+}
+
+.input {
+    flex:1;
+    border: 2px solid #d7dfe8;
+}

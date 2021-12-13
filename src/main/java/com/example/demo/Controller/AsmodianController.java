@@ -181,7 +181,8 @@ public class AsmodianController {
     @PostMapping("/SignIn")
     public String getSignIn(@RequestParam("email") String email,
                             @RequestParam("password") String password) {
-        currentUser = dataBaseController.logIn(email, password);
+        //currentUser = dataBaseController.logIn("Sergiy@gmail.com", "qweasdzxc");
+        currentUser = dataBaseController.logIn("Monich17v@gmail.com", "qwe123asd");
         return "redirect:/MainPage";
     }
     @PostMapping("AddInformation")

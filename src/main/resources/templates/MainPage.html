@@ -4,38 +4,53 @@
     <meta charset="UTF-8">
     <title>Головна сторінка</title>
     <link th:href="@{/css/MainPAge.css}" rel="stylesheet" />
+    <link th:href="@{/css/Index.css}" rel="stylesheet" />
 </head>
 <body>
 <div class="MainPage">
-<div th:if = "${currentUser.getDoctor() == 'doctor'}">
-    <div class="test">
-    <p> Акаунт лікаря</p>
+    <div class="header">
+        <div class="userInfo">
+            <p th:text="${currentUser.getDoctor()}"></p>
+            <p th:text="${currentUser.getName()}"></p>
+        </div>
+
+        <a href="/SignIn" class="button">Вийти</a>
     </div>
-    <a href="/AddInformation">Додати інформацію про себе</a>
-    <br/>
-    <a href="/AboutDoctor">Моя інформація</a>
-    <br/>
-    <a href="/SetDisease">Поставити діагноз</a>
-    <br/>
-    <a href="/UserList">Список пацієнтів</a>
-    <br/>
-    <a href="/Statistic">Статистика</a>
-    <br/>
-</div>
-<div th:if = "${currentUser.getDoctor() != 'doctor'}">
-    <div class="test">
-        <p> Акаунт пацієнта</p>
+<div th:if = "${currentUser.getDoctor() == 'doctor'}" class="wrapper">
+    <div class="container">
+        <div class="item">
+            <a href="/AddInformation">Додати інформацію про себе</a>
+        </div>
+        <div class="item">
+            <a href="/AboutDoctor">Моя інформація</a>
+        </div>
+        <div class="item">
+            <a href="/SetDisease">Поставити діагноз</a>
+        </div>
+        <div class="item">
+            <a href="/UserList">Список пацієнтів</a>
+        </div>
+        <div class="item">
+            <a href="/Statistic">Статистика</a>
+        </div>
+        <div class="item">
+            <a href="/MeetingPage">Переглянути зустрічі</a>
+        </div>
     </div>
-    <a href="/AboutDoctor">Інформація про лікаря</a>
-    <br>
-    <a href="/MyDisease">Мій діагноз</a>
 </div>
-<a href="/MeetingPage">Переглянути зустрічі</a>
-<br/>
-<p th:text="${currentUser.getName()}"></p>
-<p th:text="${currentUser.getEmail()}"></p>
-<p th:text="${currentUser.getDoctor()}"></p>
-<a href="/SignIn">Вийти</a>
+<div th:if = "${currentUser.getDoctor() != 'doctor'}" class="wrapper">
+    <div class="container">
+        <div class="item">
+            <a href="/AboutDoctor">Інформація про лікаря</a>
+        </div>
+        <div class="item">
+            <a href="/MyDisease">Мій діагноз</a>
+        </div>
+        <div class="item">
+            <a href="/MeetingPage">Переглянути зустрічі</a>
+        </div>
+    </div>
+</div>
 </div>
 </body>
 </html>

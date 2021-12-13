@@ -1,0 +1,72 @@
+.formContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 600px;
+    height: auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #A9A9A9;
+    display: flex;
+    flex-direction: column;
+}
+
+.formBox {
+    position: relative;
+}
+
+.formBox .backBtn {
+    position: absolute;
+    top: -20px;
+    left: -18px;
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 0 16px;
+    border-bottom: 1px solid #59cfc2;
+}
+
+.inputBox {
+    display: flex;
+    align-items: center;
+}
+
+.inputBox p {
+    padding-right: 16px;
+}
+
+.userContainer {
+    padding-top: 16px;
+    overflow: auto;
+}
+
+.userItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.userDiv {
+    flex: 1;
+    font-size: 18px;
+    color: #3e3e3e;
+}
+
+.userDiv a {
+    text-decoration: none;
+    padding-left: 16px;
+}
+
+.userItemHeadline {
+    text-align: center;
+}
+
+.userItem:nth-child(odd) {
+    background: #59cfc2;
+    color: white;
+}

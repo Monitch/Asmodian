@@ -3,20 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Список користувачів</title>
-    <link th:href="@{/css/SignIn.css}" rel="stylesheet" />
+    <link th:href="@{/css/Index.css}" rel="stylesheet" />
+    <link th:href="@{/css/UserList.css}" rel="stylesheet" />
 </head>
 <body>
-<a href="/MainPage">Назад</a>
-<form method="Post">
-    <label for="name">Ім'я</label>
-    <br>
-    <input type="text" id="name" name="name" placeholder="Введдіть ім'я">
-    <br>
-    <input type="submit" value="Пошук"/>
-</form>
-<div th:each="user : ${users}">
-    <a th:href="@{/{id}(id=${user.getId()})}" th:text="${user.getName()}">user</a>
-    <p th:text="${user.getEmail()}">Age</p>
+<div class="formContainer">
+    <div class="formBox">
+        <a href="/MainPage" class="backBtn">Назад</a>
+        <form method="Post" class="form">
+            <div class="inputBox">
+                <p>Імя'</p>
+                <input type="text" class="input" id="name" name="name" placeholder="Введдіть ім'я">
+            </div>
+            <button type="submit" class="button">
+                Пошук
+            </button>
+        </form>
+    </div>
+    <div class="userContainer">
+        <div class="userItem">
+            <div class="userDiv userItemHeadline">
+                <a>Імя</a>
+            </div>
+            <div class="userDiv userItemHeadline">
+                <p>Емейл</p>
+            </div>
+        </div>
+        <div th:each="user : ${users}" class="userItem">
+            <div class="userDiv">
+                <a th:href="@{/{id}(id=${user.getId()})}" th:text="${user.getName()}">user</a>
+            </div>
+            <div class="userDiv">
+                <p th:text="${user.getEmail()}">Age</p>
+            </div>
+
+        </div>
+    </div>
 </div>
+
 </body>
 </html>
