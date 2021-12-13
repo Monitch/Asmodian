@@ -556,8 +556,8 @@ public class DataBaseController {
         }
     }
 
-    public List<Info> getInfoAboutDoctor(String name) {
-        List<Info> infoList = new ArrayList<Info>();
+    public Info getInfoAboutDoctor(String name) {
+        Info infoList = new Info();
         try {
             PreparedStatement preparedStatement =
                     connection.prepareStatement("SELECT * FROM infoDB WHERE name=? ORDER BY id");
@@ -566,16 +566,14 @@ public class DataBaseController {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                Info info = new Info();
-                info.setId(resultSet.getInt("id"));
-                info.setName(resultSet.getString("name"));
-                info.setEmail(resultSet.getString("email"));
-                info.setNumber(resultSet.getString("number"));
-                info.setEducation(resultSet.getString("education"));
-                info.setExperience(resultSet.getString("experience"));
-                info.setAwards(resultSet.getString("awards"));
-                info.setAboutme(resultSet.getString("aboutme"));
-                infoList.add(info);
+                infoList.setId(resultSet.getInt("id"));
+                infoList.setName(resultSet.getString("name"));
+                infoList.setEmail(resultSet.getString("email"));
+                infoList.setNumber(resultSet.getString("number"));
+                infoList.setEducation(resultSet.getString("education"));
+                infoList.setExperience(resultSet.getString("experience"));
+                infoList.setAwards(resultSet.getString("awards"));
+                infoList.setAboutme(resultSet.getString("aboutme"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

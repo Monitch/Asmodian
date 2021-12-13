@@ -5,7 +5,11 @@
     <title>Сторінка користувача</title>
 </head>
 <body>
+<p th:text="${'Пацієнт: ' + user.getName()}"></p>
+<p th:text="${'Пошта: ' + user.getEmail()}"></p>
+<p th:text="${'Номер телефону: ' + user.getNumber()}"></p>
+<p th:text="${'Хвороба: ' + disease.getDisease()}"></p>
+<p th:text="${'Лікування: ' + disease.getMedicine()}"></p>
 <a href="/UserList">Назад</a>
-<p th:text="${user.getEmail() + ', '+ user.getDoctor()}"></p>
 </body>
 </html>

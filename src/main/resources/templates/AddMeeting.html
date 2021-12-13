@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Записатися на прийом</title>
+    <link th:href="@{/css/AddMetting.css}" rel="stylesheet" />
+    <link th:href="@{/css/SignIn.css}" rel="stylesheet" />
 </head>
 <body>
+<div class="DateForm">
 <form method="Post">
+    <div class="inputForm">
     <label for="data"> Виберіть дату прийому!</label>
-    <br>
     <input type="datetime-local" id="data" name="data">
-    <br>
-    <input type="submit" value="Підтвердити дату"/>
+    </div>
+    <div class="btnMother">
+        <button class="btnSubmit" type="submit">Вибрати дату</button>
+    </div>
 </form>
 <a href="/MeetingPage">Назад</a>
+</div>
 </body>
 </html>

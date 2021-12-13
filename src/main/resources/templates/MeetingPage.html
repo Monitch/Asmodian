@@ -8,18 +8,34 @@
 <div th:if = "${currentUser.getDoctor() != 'doctor'}">
     <a href="/AddMeeting">Додати зустріч</a>
     <div th:each="meeting : ${meetingList}">
-        <p th:text="${meeting.getName() + ', ' + meeting.getDoctor() + ', ' + meeting.getDate() + ', ' + meeting.getApproved()}">Age</p>
+        <div th:if="${meeting.getApproved()=='waiting'}">
+        <p th:text="${'Лікар: ' + meeting.getDoctor() +' Дата: ' + meeting.getDate() + ' Статус : очікується підтвердження'}">Age</p>
+        </div>
+        <div th:if="${meeting.getApproved()=='true'}">
+        <p th:text="${'Лікар: ' + meeting.getDoctor() +' Дата: ' + meeting.getDate() + ' Статус : підтверджено'}">Age</p>
+        </div>
+        <div th:if="${meeting.getApproved()=='false'}">
+        <p th:text="${'Лікар: ' + meeting.getDoctor() +' Дата: ' + meeting.getDate() + ' Статус : скасовано'}">Age</p>
+        </div>
     </div>
 </div>
 <div th:if = "${currentUser.getDoctor() == 'doctor'}">
     <div th:each="meeting : ${meetingList}">
-        <div th:if="${meeting.getApproved()!='false'}">
-        <p th:text="${meeting.getName() + ', ' + meeting.getDoctor() + ', ' + meeting.getDate() + ', ' + meeting.getApproved()}">Age</p>
+        <div th:if="${meeting.getApproved()=='waiting'}">
+        <p th:text="${'Пацієнт: ' + meeting.getName() +' Дата: ' + meeting.getDate() + ' Статус : очікується підтвердження'}">Age</p>
             <form method="Post">
             <input type="hidden" name="id" th:value="${meeting.getId()}">
             <button type="submit" name="action" onClick='return confirmSubmit()' value="save">Підтвердити</button>
             <button type="submit" name="action" onClick='return cancelSubmit()' value="cancel">Скасувати</button>
         </form>
+        </div>
+        <div th:if="${meeting.getApproved()=='true'}">
+            <p th:text="${'Пацієнт: ' + meeting.getName() +' Дата: ' + meeting.getDate() + ' Статус : підтверджено'}">Age</p>
+            <form method="Post">
+                <input type="hidden" name="id" th:value="${meeting.getId()}">
+                <button type="submit" name="action" onClick='return confirmSubmit()' value="save">Підтвердити</button>
+                <button type="submit" name="action" onClick='return cancelSubmit()' value="cancel">Скасувати</button>
+            </form>
         </div>
     </div>
 </div>

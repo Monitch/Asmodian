@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Список користувачів</title>
+    <link th:href="@{/css/SignIn.css}" rel="stylesheet" />
 </head>
 <body>
 <a href="/MainPage">Назад</a>
@@ -15,7 +16,7 @@
 </form>
 <div th:each="user : ${users}">
     <a th:href="@{/{id}(id=${user.getId()})}" th:text="${user.getName()}">user</a>
-    <p th:text="${user.getEmail() + ', ' + user.getDoctor()}">Age</p>
+    <p th:text="${user.getEmail()}">Age</p>
 </div>
 </body>
 </html>

@@ -1,0 +1,22 @@
+body{
+    height: 100vh;
+    width: 100vw;
+    background:url("../Image/img.png") no-repeat;
+    margin: 0;
+    background-size: cover;
+    position: relative;
+    font-family: Arial, serif ;
+    color: #2d2d2d;
+}
+.DateForm{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    width: 500px;
+    height: auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border: 2px solid #D4D4D4;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #A9A9A9;
+}

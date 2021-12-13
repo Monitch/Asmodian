@@ -6,9 +6,12 @@
 </head>
 <body>
 <div th:if = "${check == 'false'}">
-<div th:each="info : ${doctorInfo}">
-    <p th:text="${info.getName() + ', ' + info.getEducation() + ', ' + info.getExperience() + ', ' + info.getAboutme()}">Age</p>
-</div>
+    <p th:text="${'Імя: ' + doctorInfo.getName()}"></p>
+    <p th:text="${'Номер телефону: ' + doctorInfo.getNumber()}"></p>
+    <p th:text="${'Освіта: ' + doctorInfo.getEducation()}"></p>
+    <p th:text="${'Досвід роботи: ' + doctorInfo.getExperience()}"></p>
+    <p th:text="${'Нагороди\відзнаки: ' + doctorInfo.getAwards()}"></p>
+    <p th:text="${'Про себе: ' + doctorInfo.getAboutme()}"></p>
 </div>
 <div th:if = "${check == 'true'}">
         <p>Інформація відсутня</p>

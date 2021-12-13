@@ -89,12 +89,12 @@ public class AsmodianController {
         String check="";
         if (currentUser.getDoctor().equals("doctor")){
             model.addAttribute("doctorInfo", dataBaseController.getInfoAboutDoctor(currentUser.getName()));
-            check= String.valueOf(dataBaseController.getInfoAboutDoctor(currentUser.getName()).isEmpty());
+            check= String.valueOf(dataBaseController.getInfoAboutDoctor(currentUser.getName()).getEmail()==null);
             model.addAttribute("check",check);
         }
         if (!currentUser.getDoctor().equals("doctor")){
             model.addAttribute("doctorInfo", dataBaseController.getInfoAboutDoctor(currentUser.getDoctor()));
-            check= String.valueOf(dataBaseController.getInfoAboutDoctor(currentUser.getDoctor()).isEmpty());
+            check= String.valueOf(dataBaseController.getInfoAboutDoctor(currentUser.getDoctor()).getEmail()==null);
             model.addAttribute("check",check);
         }
         return "/AboutDoctor";
@@ -120,7 +120,10 @@ public class AsmodianController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", dataBaseController.findById(id));
+        User user = new User();
+        user=dataBaseController.findById(id);
+        model.addAttribute("user", user);
+        model.addAttribute("disease", dataBaseController.getDisease(user.getNumber()));
         return "/UserShow";
     }
     @GetMapping("/MeetingPage")
