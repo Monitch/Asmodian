@@ -2,18 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Діагноз</title>
+    <link th:href="@{/css/Index.css}" rel="stylesheet" />
+    <link th:href="@{/css/MyDisease.css}" rel="stylesheet" />
 </head>
 <body>
-<div th:if = "${info.getDisease() != null}">
-    <p th:text="${'Пацієнт: ' +info.getName()}"></p>
-    <p th:text="${'Лікар: ' + info.getDoctor()}"></p>
-    <p th:text="${'Діагноз: ' + info.getDisease()}"></p>
-    <p th:text="${'Лікування: ' + info.getMedicine()}"></p>
+<div th:if = "${info.getDisease() != null}"class="wrapper">
+    <div class="infoContainer">
+        <p>Пацієнт</p>
+        <p th:text="${info.getName()}"></p>
+    </div>
+    <div class="infoContainer">
+        <p>Лікар</p>
+        <p th:text="${info.getDoctor()}"></p>
+    </div>
+    <div class="infoContainer">
+        <p>Діагноз</p>
+        <p th:text="${info.getDisease()}"></p>
+    </div>
+    <div class="infoContainer">
+        <p>Лікування</p>
+        <p th:text="${info.getMedicine()}"></p>
+    </div>
+    <div>
+        <a href="/MainPage" class="button">Назад</a>
+    </div>
 </div>
-<div th:if = "${info.getDisease() == null}">
+<div th:if = "${info.getDisease() == null}" class="wrapper">
     <p>Діагноз відсутній</p>
+    <div>
+    <a href="/MainPage" class="button">Назад</a>
+    </div>
 </div>
-    <a href="/MainPage">Назад</a>
+
 </body>
 </html>

@@ -1,6 +1,7 @@
 body {
     background:url("../Image/img.png") no-repeat;
     background-size: cover;
+    min-height: 100vh;
 }
 
 body p {

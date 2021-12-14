@@ -10,8 +10,14 @@
 <div class="MainPage">
     <div class="header">
         <div class="userInfo">
-            <p th:text="${currentUser.getDoctor()}"></p>
+            <div th:if = "${currentUser.getDoctor() == 'doctor'}">
+            <p>Лікар </p>
             <p th:text="${currentUser.getName()}"></p>
+            </div>
+            <div th:if = "${currentUser.getDoctor() != 'doctor'}">
+                <p>Пацієнт </p>
+                <p th:text="${currentUser.getName()}"></p>
+            </div>
         </div>
 
         <a href="/SignIn" class="button">Вийти</a>

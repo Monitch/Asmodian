@@ -3,13 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Сторінка користувача</title>
+    <link th:href="@{/css/Index.css}" rel="stylesheet" />
+    <link th:href="@{/css/UserById.css}" rel="stylesheet" />
 </head>
 <body>
-<p th:text="${'Пацієнт: ' + user.getName()}"></p>
-<p th:text="${'Пошта: ' + user.getEmail()}"></p>
-<p th:text="${'Номер телефону: ' + user.getNumber()}"></p>
-<p th:text="${'Хвороба: ' + disease.getDisease()}"></p>
-<p th:text="${'Лікування: ' + disease.getMedicine()}"></p>
-<a href="/UserList">Назад</a>
+<div class="wrapper">
+<div class="infoContainer">
+<p>Пацієнт:</p>
+<p th:text="${ user.getName()}"></p>
+</div>
+<div class="infoContainer">
+<p>Пошта:</p>
+<p th:text="${ user.getEmail()}"></p>
+</div>
+<div class="infoContainer">
+<p>Номер телефону</p>
+<p th:text="${ user.getNumber()}"></p>
+</div>
+<div class="infoContainer">
+<p>Діагноз</p>
+<p th:text="${ disease.getDisease()}"></p>
+</div>
+<div class="infoContainer">
+<p>Лікування</p>
+<p th:text="${disease.getMedicine()}"></p>
+</div>
+<a href="/UserList" class="button">Назад</a>
+</div>
 </body>
 </html>

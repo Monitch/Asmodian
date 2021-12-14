@@ -3,70 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <title>Ваші зустрічі</title>
+    <link th:href="@{/css/Index.css}" rel="stylesheet"/>
+    <link th:href="@{/css/MeetingPage.css}" rel="stylesheet"/>
 </head>
 <body>
-<div th:if = "${currentUser.getDoctor() != 'doctor'}">
+<div th:if="${currentUser.getDoctor() != 'doctor'}">
     <div th:if="${check == true}">
         <p> Поки немає запланованих зустрічей, додайте нову</p>
     </div>
-    <a href="/AddMeeting">Додати зустріч</a>
+
     <div th:if="${check == false}">
-    <div th:each="meeting : ${meetingList}">
-        <div th:if="${meeting.getApproved()=='waiting'}">
-        <p th:text="${'Лікар: ' + meeting.getDoctor() +' Дата: ' + meeting.getDate() + ' Статус : очікується підтвердження'}">Age</p>
+        <div class="buttonWrapper">
+            <div class="buttonBox">
+                <a href="/MainPage" class="button">Назад</a>
+                <a href="/AddMeeting" class="button">
+                    Додати зустріч
+                </a>
+            </div>
         </div>
-        <div th:if="${meeting.getApproved()=='true'}">
-        <p th:text="${'Лікар: ' + meeting.getDoctor() +' Дата: ' + meeting.getDate() + ' Статус : підтверджено'}">Age</p>
-        </div>
-        <div th:if="${meeting.getApproved()=='false'}">
-        <p th:text="${'Лікар: ' + meeting.getDoctor() +' Дата: ' + meeting.getDate() + ' Статус : скасовано'}">Age</p>
+        <div class="wrapper">
+        <div th:each="meeting : ${meetingList}" style="width: 60%">
+            <div th:if="${meeting.getApproved()=='waiting'}" class="meetingItem waiting">
+                <div class="meetingBox">
+                    <p>Лікар</p>
+                    <p th:text="${meeting.getDoctor()}"></p>
+                </div>
+                <div class="meetingBox">
+                    <p>Дата</p>
+                    <p th:text="${meeting.getDate()}"></p>
+                </div>
+                <div class="meetingBox">
+                    <p>Статус</p>
+                    <p>Очікується підтвердження</p>
+                </div>
+            </div>
+            <div th:if="${meeting.getApproved()=='true'}" class="meetingItem accepted">
+                <div class="meetingBox">
+                    <p>Лікар</p>
+                    <p th:text="${meeting.getDoctor()}"></p>
+                </div>
+                <div class="meetingBox">
+                    <p>Дата</p>
+                    <p th:text="${meeting.getDate()}"></p>
+                </div>
+                <div class="meetingBox">
+                    <p>Статус</p>
+                    <p>Підтвердженно</p>
+                </div>
+            </div>
+            <div th:if="${meeting.getApproved()=='false'}" class="meetingItem declined">
+                <div class="meetingBox">
+                    <p>Лікар</p>
+                    <p th:text="${meeting.getDoctor()}"></p>
+                </div>
+                <div class="meetingBox">
+                    <p>Дата</p>
+                    <p th:text="${meeting.getDate()}"></p>
+                </div>
+                <div class="meetingBox">
+                    <p>Статус</p>
+                    <p>Скасовано</p>
+                </div>
+            </div>
         </div>
         </div>
     </div>
 </div>
-<div th:if = "${currentUser.getDoctor() == 'doctor'}">
-    <div th:if = "${check == true}">
-        <p><p> Поки немає запланованих зустрічей</p></p>
+<div th:if="${currentUser.getDoctor() == 'doctor'}">
+    <div th:if="${check == true}">
+        <p>
+        <p> Поки немає запланованих зустрічей</p></p>
     </div>
     <div th:if="${check == false}">
-    <div th:each="meeting : ${meetingList}">
-        <div th:if="${meeting.getApproved()=='waiting'}">
-        <p th:text="${'Пацієнт: ' + meeting.getName() +' Дата: ' + meeting.getDate() + ' Статус : очікується підтвердження'}">Age</p>
-            <form method="Post">
-            <input type="hidden" name="id" th:value="${meeting.getId()}">
-            <button type="submit" name="action" onClick='return confirmSubmit()' value="save">Підтвердити</button>
-            <button type="submit" name="action" onClick='return cancelSubmit()' value="cancel">Скасувати</button>
-        </form>
+        <div class="buttonWrapper">
+            <div class="buttonBox" style="justify-content: flex-start">
+                <a href="/MainPage" class="button">Назад</a>
+            </div>
         </div>
-        <div th:if="${meeting.getApproved()=='true'}">
-            <p th:text="${'Пацієнт: ' + meeting.getName() +' Дата: ' + meeting.getDate() + ' Статус : підтверджено'}">Age</p>
-            <form method="Post">
-                <input type="hidden" name="id" th:value="${meeting.getId()}">
-                <button type="submit" name="action" onClick='return confirmSubmit()' value="save">Підтвердити</button>
-                <button type="submit" name="action" onClick='return cancelSubmit()' value="cancel">Скасувати</button>
-            </form>
+        <div class="wrapper">
+        <div th:each="meeting : ${meetingList}" style="width: 70%">
+            <div th:if="${meeting.getApproved()=='waiting'}" class="meetingItem waiting">
+                <div class="doctorBox">
+                    <p>Пацієнт</p>
+                    <p th:text="${meeting.getName()}"></p>
+                </div>
+                <div class="doctorBox">
+                    <p>Дата</p>
+                    <p th:text="${meeting.getDate()}"></p>
+                </div>
+                <div class="doctorBox">
+                    <p>Статус</p>
+                    <p>Очікується підтвердження</p>
+                </div>
+                <form method="Post" class="doctorBox">
+                    <input type="hidden" name="id" th:value="${meeting.getId()}">
+                    <button class="button" style="margin-bottom: 16px" type="submit" name="action" onClick='return confirmSubmit()' value="save">Підтвердити
+                    </button>
+                    <button class="button" type="submit" name="action" onClick='return cancelSubmit()' value="cancel">Скасувати
+                    </button>
+                </form>
+            </div>
+            <div th:if="${meeting.getApproved()=='true'}" class="meetingItem accepted">
+                <div class="doctorBox">
+                    <p>Пацієнт</p>
+                    <p th:text="${meeting.getName()}"></p>
+                </div>
+                <div class="doctorBox">
+                    <p>Дата</p>
+                    <p th:text="${meeting.getDate()}"></p>
+                </div>
+                <div class="doctorBox">
+                    <p>Статус</p>
+                    <p>Підтвердженно</p>
+                </div>
+
+            </div>
         </div>
-    </div>
+        </div>
     </div>
 </div>
-<a href="/MainPage">Назад</a>
+
 </body>
 </html>
 <script>
-    function confirmSubmit()
-    {
-        var agree=confirm("Затвердити зустріч?");
+    function confirmSubmit() {
+        var agree = confirm("Затвердити зустріч?");
         if (agree)
-            return true ;
+            return true;
         else
-            return false ;
+            return false;
     }
-    function cancelSubmit()
-    {
-        var agree=confirm("Відмовити в зустрічі?");
+
+    function cancelSubmit() {
+        var agree = confirm("Відмовити в зустрічі?");
         if (agree)
-            return true ;
+            return true;
         else
-            return false ;
+            return false;
     }
 </script>

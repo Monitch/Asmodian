@@ -17,6 +17,7 @@
     font-size: 16px;
     padding-top: 5px;
 }
+
 .infoContainer:not(:last-child){
     padding-bottom: 16px;
 }

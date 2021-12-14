@@ -5,62 +5,60 @@
     <meta charset="UTF-8">
     <title>Статистика</title>
     <link th:href="@{/css/Index.css}" rel="stylesheet" />
-    <link th:href="@{/css/AboutDoctor.css}" rel="stylesheet" />
+    <link th:href="@{/css/Statistic.css}" rel="stylesheet" />
 </head>
 <body>
-<div class="bigFloppa">
-<div style="display: flex" class="wrapper">
+<div class="statisticBlock">
+    <div>
+        <a href="/MainPage" class="button backBtn">Назад</a>
+    </div>
+<div style="display: flex; height: fit-content; width: fit-content;" class="staticWrapper">
 <div style="height: 400px; width: 700px;">
     <canvas id="myChart" ></canvas>
 </div>
-<div>
-    <div class="wrapper">
-    <div class="infoContainer">
-    <p>Загальна кількість пацієнтів: </p>
-    <p th:text="${ cPatient}"></p>
-    </div>
-    <div class="infoContainer">
-        <p>Кількість пацієнтів які перебувають на лікуванні: </p>
-        <p th:text="${cSick}"></p>
-    </div>
-    <div class="infoContainer">
-        <p>Відсоток хворих: </p>
-        <p th:text="${ pSick}"></p>
-    </div>
-<div th:if = "${PopularIll == 'COVid 19'}">
-    <div class="infoContainer">
-        <p>Найпоширеніша хвороба на даний момент: </p>
-        <p th:text="${ PopularIll }"></p>
-    </div>
-    <div class="infoContainer">
-        <p>Що складає: </p>
-        <p th:text="${ pPopular + 'відсотків хворих'}"></p>
-    </div>
 </div>
-<div th:if = "${PopularIll != 'COVid 19'}">
-    <div class="infoContainer">
-        <p>Найпоширеніша хвороба на даний момент: </p>
-        <p th:text="${ PopularIll }"></p>
-    </div>
-    <div class="infoContainer">
-        <p>Що складає: </p>
-        <p th:text="${ pPopular + '%'}"></p>
-    </div>
-    <div class="infoContainer">
-        <p>Кількість хворих на COVid 19 складає: </p>
-        <p th:text="${ cCovid }"></p>
-    </div>
-    <div class="infoContainer">
-        <p>Що складає: </p>
-        <p th:text="${ pCovid }+'%'"></p>
-    </div>
+    <div class="infoWrapper">
+        <div class="infoContainer">
+            <p>Загальна кількість пацієнтів: </p>
+            <p th:text="${ cPatient}"></p>
+        </div>
+        <div class="infoContainer">
+            <p>Перебувають на лікуванні: </p>
+            <p th:text="${cSick}"></p>
+        </div>
+        <div class="infoContainer">
+            <p>Відсоток хворих: </p>
+            <p th:text="${ pSick}"></p>
+        </div>
+        <div th:if = "${PopularIll == 'COVid 19'}">
+            <div class="infoContainer">
+                <p>Найпоширеніша хвороба: </p>
+                <p th:text="${ PopularIll }"></p>
+            </div>
+            <div class="infoContainer">
+                <p>Що складає: </p>
+                <p th:text="${ pPopular + '%'}"></p>
+            </div>
+        </div>
+        <div th:if = "${PopularIll != 'COVid 19'}">
+            <div class="infoContainer">
+                <p>Найпоширеніша хвороба на даний момент: </p>
+                <p th:text="${ PopularIll }"></p>
+            </div>
+            <div class="infoContainer">
+                <p>Що складає: </p>
+                <p th:text="${ pPopular + '%'}"></p>
+            </div>
+            <div class="infoContainer">
+                <p>Хворих на COVid 19: </p>
+                <p th:text="${ cCovid }"></p>
+            </div>
+            <div class="infoContainer">
+                <p>Що складає: </p>
+                <p th:text="${ pCovid }+'%'"></p>
+            </div>
+        </div>
 </div>
-    </div>
-</div>
-</div>
-</div>
-<div>
-    <a href="/MainPage" class="button">Назад</a>
 </div>
 </body>
 

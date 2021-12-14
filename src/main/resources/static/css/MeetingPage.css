@@ -1,0 +1,84 @@
+body {
+    height: 100vh;
+    margin: 0;
+}
+
+.buttonWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper {
+    padding: 40px 32px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: calc(100vh - 107px);
+    overflow: auto;
+}
+
+.buttonBox {
+    display: flex;
+    width: 75%;
+    justify-content: space-between;
+    padding: 16px 32px;
+}
+
+.meetingItem {
+    display: flex;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 0 15px #A9A9A9;
+    width: 100%;
+    padding: 16px 32px;
+    margin: 20px 0;
+}
+
+.meetingBox {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.meetingBox p:first-child {
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 8px;
+}
+
+.doctorBox {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.doctorBox p:first-child {
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 8px;
+}
+
+.doctorBox button {
+    width: 120px;
+    height: 26px;
+    border-radius: 0;
+}
+
+.waiting {
+    box-shadow: 0 0 15px #efff02;
+}
+
+.accepted {
+    box-shadow: 0 0 15px #30ff00;
+}
+
+.declined {
+    box-shadow: 0 0 15px #ff0b0b;
+}
