@@ -3,20 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Мій лікарь</title>
+    <link th:href="@{/css/Index.css}" rel="stylesheet" />
+    <link th:href="@{/css/AboutDoctor.css}" rel="stylesheet" />
 </head>
 <body>
-<div th:if = "${check == 'false'}">
-    <p th:text="${'Імя: ' + doctorInfo.getName()}"></p>
-    <p th:text="${'Номер телефону: ' + doctorInfo.getNumber()}"></p>
-    <p th:text="${'Освіта: ' + doctorInfo.getEducation()}"></p>
-    <p th:text="${'Досвід роботи: ' + doctorInfo.getExperience()}"></p>
-    <p th:text="${'Нагороди\відзнаки: ' + doctorInfo.getAwards()}"></p>
-    <p th:text="${'Про себе: ' + doctorInfo.getAboutme()}"></p>
-</div>
-<div th:if = "${check == 'true'}">
+<div th:if = "${check == 'false'}" class="wrapper">
+    <div class="infoContainer">
+        <p>Ім'я</p>
+        <p th:text="${doctorInfo.getName()}"></p>
+    </div>
+    <div class="infoContainer">
+        <p>Номер телефону</p>
+        <p th:text="${doctorInfo.getNumber()}"></p>
+    </div>
+    <div class="infoContainer">
+        <p>Освіта</p>
+        <p th:text="${doctorInfo.getEducation()}"></p>
+    </div>
+    <div class="infoContainer">
+        <p>Досвід роботи</p>
+        <p th:text="${doctorInfo.getExperience()}"></p>
+    </div>
+    <div class="infoContainer">
+        <p>Нагороди відзнаки</p>
+        <p th:text="${doctorInfo.getAwards()}"></p>
+    </div>
+    <div class="infoContainer">
+        <p>Про себе</p>
+        <p th:text="${doctorInfo.getAboutme()}"></p>
+    </div>
+    <div th:if = "${check == 'true'}">
         <p>Інформація відсутня</p>
+    </div>
+    <div>
+    <a href="/MainPage" class="button">Назад</a>
+    </div>
+</div>
+<div th:if = "${check == 'true'}" class="wrapper">
+    <p style="text-align: center">Інформація відсутня</p>
+<div>
+    <a href="/MainPage" class="button">Назад</a>
 </div>
 </div>
-<a href="/MainPage">Назад</a>
 </body>
 </html>

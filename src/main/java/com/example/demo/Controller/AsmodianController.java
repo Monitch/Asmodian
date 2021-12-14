@@ -132,10 +132,17 @@ public class AsmodianController {
         if (currentUser.getDoctor().equals("doctor")){
             model.addAttribute(
                     "meetingList",dataBaseController.getAllMeetingOfCurrentDoctor(currentUser.getName()));
+            System.out.println(dataBaseController.getAllMeetingOfCurrentDoctor(currentUser.getName()).isEmpty());
+            model.addAttribute(
+                    "check",dataBaseController.getAllMeetingOfCurrentDoctor(currentUser.getName()).isEmpty());
+
         }
         if (!currentUser.getDoctor().equals("doctor")) {
             model.addAttribute(
                     "meetingList", dataBaseController.getAllMeetingOfCurrentUser(currentUser.getEmail()));
+            model.addAttribute(
+                    "check", dataBaseController.getAllMeetingOfCurrentUser(currentUser.getEmail()).isEmpty());
+            System.out.println(dataBaseController.getAllMeetingOfCurrentUser(currentUser.getEmail()).isEmpty());
         }
 
         return "/MeetingPage";
@@ -183,6 +190,7 @@ public class AsmodianController {
                             @RequestParam("password") String password) {
         //currentUser = dataBaseController.logIn("Sergiy@gmail.com", "qweasdzxc");
         currentUser = dataBaseController.logIn("Monich17v@gmail.com", "qwe123asd");
+        //currentUser = dataBaseController.logIn(email, password);
         return "redirect:/MainPage";
     }
     @PostMapping("AddInformation")
@@ -208,7 +216,7 @@ public class AsmodianController {
     @PostMapping("UserList")
     public String UserListPost(@RequestParam("name") String name,
                                Model model) {
-        model.addAttribute("users", dataBaseController.findByName(name));
+        model.addAttribute("users", dataBaseController.findByName(name,currentUser.getName()));
         return "UserList";
     }
 

@@ -6,7 +6,11 @@
 </head>
 <body>
 <div th:if = "${currentUser.getDoctor() != 'doctor'}">
+    <div th:if="${check == true}">
+        <p> Поки немає запланованих зустрічей, додайте нову</p>
+    </div>
     <a href="/AddMeeting">Додати зустріч</a>
+    <div th:if="${check == false}">
     <div th:each="meeting : ${meetingList}">
         <div th:if="${meeting.getApproved()=='waiting'}">
         <p th:text="${'Лікар: ' + meeting.getDoctor() +' Дата: ' + meeting.getDate() + ' Статус : очікується підтвердження'}">Age</p>
@@ -17,9 +21,14 @@
         <div th:if="${meeting.getApproved()=='false'}">
         <p th:text="${'Лікар: ' + meeting.getDoctor() +' Дата: ' + meeting.getDate() + ' Статус : скасовано'}">Age</p>
         </div>
+        </div>
     </div>
 </div>
 <div th:if = "${currentUser.getDoctor() == 'doctor'}">
+    <div th:if = "${check == true}">
+        <p><p> Поки немає запланованих зустрічей</p></p>
+    </div>
+    <div th:if="${check == false}">
     <div th:each="meeting : ${meetingList}">
         <div th:if="${meeting.getApproved()=='waiting'}">
         <p th:text="${'Пацієнт: ' + meeting.getName() +' Дата: ' + meeting.getDate() + ' Статус : очікується підтвердження'}">Age</p>
@@ -37,6 +46,7 @@
                 <button type="submit" name="action" onClick='return cancelSubmit()' value="cancel">Скасувати</button>
             </form>
         </div>
+    </div>
     </div>
 </div>
 <a href="/MainPage">Назад</a>

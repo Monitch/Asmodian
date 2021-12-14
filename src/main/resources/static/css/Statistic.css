@@ -1,0 +1,18 @@
+.wrapper {
+    background-color: #ffffff;
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
+    padding: 16px;
+}
+.bigFloppa{
+    display: flex;
+    justify-content: space-between;
+}
+.infoContainer{
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    padding-top: 5px;
+}

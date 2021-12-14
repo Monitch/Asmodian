@@ -263,13 +263,14 @@ public class DataBaseController {
         return user;
     }
 
-    public List<User> findByName(String name) {
+    public List<User> findByName(String name, String doctor) {
         List<User> users = new ArrayList<User>();
         try {
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("SELECT * FROM userbd WHERE LOWER(name) like ?");
+                    connection.prepareStatement("SELECT * FROM userbd WHERE LOWER(name) like ? and doctor=?");
 
             preparedStatement.setString(1, "%" + name.toLowerCase() + "%");
+            preparedStatement.setString(2, doctor);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 

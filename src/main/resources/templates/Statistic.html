@@ -4,31 +4,66 @@
 <head>
     <meta charset="UTF-8">
     <title>Статистика</title>
+    <link th:href="@{/css/Index.css}" rel="stylesheet" />
+    <link th:href="@{/css/AboutDoctor.css}" rel="stylesheet" />
 </head>
 <body>
-<div style="display: flex">
+<div class="bigFloppa">
+<div style="display: flex" class="wrapper">
 <div style="height: 400px; width: 700px;">
     <canvas id="myChart" ></canvas>
 </div>
 <div>
-<p th:text="${'Загальна кількість пацієнтів: ' + cPatient}"></p>
-<p th:text="${'Кількість пацінтів які знаходяться на лікуванні : ' + cSick}"></p>
-<p th:text="${'Відсоток хворих складає : ' + pSick+'%'}"></p>
+    <div class="wrapper">
+    <div class="infoContainer">
+    <p>Загальна кількість пацієнтів: </p>
+    <p th:text="${ cPatient}"></p>
+    </div>
+    <div class="infoContainer">
+        <p>Кількість пацієнтів які перебувають на лікуванні: </p>
+        <p th:text="${cSick}"></p>
+    </div>
+    <div class="infoContainer">
+        <p>Відсоток хворих: </p>
+        <p th:text="${ pSick}"></p>
+    </div>
 <div th:if = "${PopularIll == 'COVid 19'}">
-    <p th:text="${'Найпоширеніша хвороба на даний момент : ' + PopularIll }"></p>
-    <p th:text="${'Що складає : ' + pPopular + ' відстоків хворих' }"></p>
+    <div class="infoContainer">
+        <p>Найпоширеніша хвороба на даний момент: </p>
+        <p th:text="${ PopularIll }"></p>
+    </div>
+    <div class="infoContainer">
+        <p>Що складає: </p>
+        <p th:text="${ pPopular + 'відсотків хворих'}"></p>
+    </div>
 </div>
 <div th:if = "${PopularIll != 'COVid 19'}">
-<p th:text="${'Найпоширеніша хвороба на даний момент : ' + PopularIll }"></p>
-<p th:text="${'Що складає : ' + pPopular + ' відстоків хворих' }"></p>
-<p th:text="${'Кількість хворих на COVid 19 складає: ' + cCovid  }"></p>
-<p th:text="${'Що складає : ' + pCovid + ' відстоків хворих' }"></p>
+    <div class="infoContainer">
+        <p>Найпоширеніша хвороба на даний момент: </p>
+        <p th:text="${ PopularIll }"></p>
+    </div>
+    <div class="infoContainer">
+        <p>Що складає: </p>
+        <p th:text="${ pPopular + '%'}"></p>
+    </div>
+    <div class="infoContainer">
+        <p>Кількість хворих на COVid 19 складає: </p>
+        <p th:text="${ cCovid }"></p>
+    </div>
+    <div class="infoContainer">
+        <p>Що складає: </p>
+        <p th:text="${ pCovid }+'%'"></p>
+    </div>
+</div>
+    </div>
 </div>
 </div>
 </div>
-<a href="/MainPage">На головну сторінку</a>
-<br/>
+<div>
+    <a href="/MainPage" class="button">Назад</a>
+</div>
 </body>
+
 <script th:inline="javascript">
     let ctx = document.getElementById('myChart').getContext('2d');
     let pSick = [[${cSick}]];
